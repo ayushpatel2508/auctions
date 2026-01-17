@@ -12,9 +12,8 @@ export const connect = () => {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
-      // Buffering settings
-      bufferMaxEntries: 0,
-      bufferCommands: false,
+      // Connection timeout
+      connectTimeoutMS: 10000,
     };
 
     mongoose.connect(mongoUri, options);
