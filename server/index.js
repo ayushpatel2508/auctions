@@ -205,9 +205,10 @@ io.on("connection", (socket) => {
       });
 
       // console.log(
-        `✅ User ${username} joined auction ${roomId}. Online users: ${auction.onlineUsers.length}`
-      );
-    } catch (err) {
+      //   `✅ User ${username} joined auction ${roomId}. Online users: ${auction.onlineUsers.length}`
+      // );
+    } 
+    catch (err) {
       // console.log("Join auction error:", err);
       socket.emit("error", "Failed to join auction");
     }
