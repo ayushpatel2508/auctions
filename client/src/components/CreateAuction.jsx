@@ -53,7 +53,7 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("🔥 CREATE AUCTION - Form submitted")
+        // console.log("🔥 CREATE AUCTION - Form submitted")
         console.log("🔥 Form data:", formData)
         console.log("🔥 Is authenticated:", isAuthenticated)
         console.log("🔥 User:", user)
@@ -66,7 +66,7 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
 
         try {
             setLoading(true);
-            console.log("🔥 Starting auction creation...")
+            // console.log("🔥 Starting auction creation...")
 
             const auctionData = {
                 ...formData,
@@ -74,10 +74,10 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                 duration: parseInt(formData.duration)
             };
 
-            console.log("🔥 Auction data to send:", auctionData)
+            // console.log("🔥 Auction data to send:", auctionData)
 
             const response = await auctionAPI.createAuction(auctionData);
-            console.log("🔥 API Response:", response)
+            // console.log("🔥 API Response:", response)
 
             if (response.data.success) {
                 console.log("✅ Auction created successfully!")

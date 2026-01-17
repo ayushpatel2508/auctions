@@ -8,7 +8,7 @@ const router = express.Router();
 
 // TEST ROUTE
 router.get("/test", (req, res) => {
-  console.log("🧪 Test route hit!");
+  // console.log("🧪 Test route hit!");
   res.json({ message: "Auth routes working!" });
 });
 
@@ -40,21 +40,21 @@ router.post("/register", async (req, res) => {
 
 // 2. LOGIN
 router.post("/login", async (req, res) => {
-  console.log("🔥 LOGIN ROUTE HIT!");
-  console.log("📥 Request body:", req.body);
+  // console.log("🔥 LOGIN ROUTE HIT!");
+  // console.log("📥 Request body:", req.body);
 
   try {
     const { email, password } = req.body;
 
-    console.log("🔍 Looking for user with email:", email);
+    // console.log("🔍 Looking for user with email:", email);
     const exists = await User.findOne({ email });
 
     if (!exists) {
-      console.log("❌ User not found with email:", email);
+      // console.log("❌ User not found with email:", email);
       return res.status(404).json({ msg: "User does not exist" });
     }
 
-    console.log("✅ User found:", {
+    // console.log("✅ User found:", {
       id: exists._id,
       username: exists.username,
       email: exists.email,
@@ -62,14 +62,14 @@ router.post("/login", async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, exists.password);
     if (!isMatch) {
-      console.log("❌ Password mismatch for user:", email);
+      // console.log("❌ Password mismatch for user:", email);
       return res.status(400).json({ msg: "Wrong password" });
     }
 
-    console.log("✅ Password match! Generating token...");
+    // console.log("✅ Password match! Generating token...");
 
     // 🔍 Debug: Log user info
-    console.log("🔐 User logging in:", {
+    // console.log("🔐 User logging in:", {
       userId: exists._id,
       username: exists.username,
       email: exists.email,
@@ -80,7 +80,7 @@ router.post("/login", async (req, res) => {
     });
 
     // 🔍 Debug: Log generated token
-    console.log("🎫 Generated token:", token.substring(0, 50) + "...");
+    // console.log("🎫 Generated token:", token.substring(0, 50) + "...");
 
     // 🔑 Set cookie with explicit domain and path
     res.cookie("token", token, {
@@ -92,10 +92,10 @@ router.post("/login", async (req, res) => {
       sameSite: "lax", // Help with cross-origin issues
     });
 
-    console.log("🍪 Cookie set successfully!");
+    // console.log("🍪 Cookie set successfully!");
 
     const response = { success: true, username: exists.username };
-    console.log("📤 Sending response:", response);
+    // console.log("📤 Sending response:", response);
 
     res.json(response);
   } catch (err) {

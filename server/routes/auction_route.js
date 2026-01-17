@@ -154,30 +154,30 @@ router.post("/auction/:roomId/quit", isLoggedIn, async (req, res) => {
     const { roomId } = req.params;
     const username = req.user.username;
 
-    console.log(`🔥 QUIT AUCTION API - User: ${username}, Room: ${roomId}`);
+    // console.log(`🔥 QUIT AUCTION API - User: ${username}, Room: ${roomId}`);
 
     const auction = await Auction.findOne({ roomId });
 
     if (!auction) {
-      console.log(`❌ Auction not found: ${roomId}`);
+      // console.log(`❌ Auction not found: ${roomId}`);
       return res.status(404).json({
         success: false,
         msg: "Auction not found",
       });
     }
 
-    console.log(`🔥 Auction found. Creator: ${auction.createdBy}, Current user: ${username}`);
-    console.log(`🔥 Is creator: ${auction.createdBy === username}`);
+    // console.log(`🔥 Auction found. Creator: ${auction.createdBy}, Current user: ${username}`);
+    // console.log(`🔥 Is creator: ${auction.createdBy === username}`);
 
     const isCreator = auction.createdBy === username;
 
-    console.log(`🔥 Online users before: ${auction.onlineUsers}`);
+    // console.log(`🔥 Online users before: ${auction.onlineUsers}`);
 
     // Remove user from both onlineUsers and joinedUsers
     auction.onlineUsers = auction.onlineUsers.filter(user => user !== username);
     auction.joinedUsers = auction.joinedUsers.filter(user => user !== username);
     
-    console.log(`🔥 Online users after: ${auction.onlineUsers}`);
+    // console.log(`🔥 Online users after: ${auction.onlineUsers}`);
     
     await auction.save();
 
@@ -190,7 +190,7 @@ router.post("/auction/:roomId/quit", isLoggedIn, async (req, res) => {
       }
     );
 
-    console.log(`✅ User ${username} successfully quit auction ${roomId}`);
+    // console.log(`✅ User ${username} successfully quit auction ${roomId}`);
 
     // Send different notifications based on whether user is creator or not
     const notificationMessage = isCreator 
@@ -303,7 +303,7 @@ router.get("/user/auctions", isLoggedIn, async (req, res) => {
     const userAuctions_joined = await Auction.find({
       createdBy: { $ne: req.user.username },
     }).select("title onlineUsers");
-    console.log(userAuctions_joined.onlineUsers);
+    // console.log(userAuctions_joined.onlineUsers);
     // Option 2: Check manually after fetch
 const allAuctionsNotCreated = await Auction.find({
   createdBy: { $ne: req.user.username }
@@ -313,7 +313,7 @@ const userJoinedAuctions = allAuctionsNotCreated.filter(auction =>
   auction.onlineUsers.includes(req.user.username)
 );
 
-console.log('User joined auctions:', userJoinedAuctions);
+// console.log('User joined auctions:', userJoinedAuctions);
     res.json({
       success: true,
       totalAuctions: userAuctions_created.length,

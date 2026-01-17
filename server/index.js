@@ -23,7 +23,9 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
-    origin: "https://auction-hub.vercel.app", // Your frontend URL
+    origin: "https://auction-hub-*.vercel.app",
+    origin: "https://auction-hub.vercel.app",
+    origin: "https://auction-hub-eta.vercel.app",
     credentials: true, // Allow cookies to be sent
   })
 );
@@ -116,7 +118,7 @@ const checkExpiredAuctions = async () => {
         showWinner: true,
       });
 
-      console.log(`Auction ${auction.roomId} ended automatically`);
+      // console.log(`Auction ${auction.roomId} ended automatically`);
     }
   } catch (error) {
     console.error("Error checking expired auctions:", error);
@@ -136,7 +138,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  // console.log("User connected:", socket.id);
 
   // 1. JOIN AUCTION
   socket.on("join-auction", async (data) => {
@@ -147,14 +149,14 @@ io.on("connection", (socket) => {
       const user = await User.findOne({ username });
 
       if (!user) {
-        console.log("❌ User not found:", username);
+        // console.log("❌ User not found:", username);
         return socket.emit("error", "User not found. Please register first.");
       }
 
       const auction = await Auction.findOne({ roomId });
 
       if (!auction) {
-        console.log("❌ Auction not found:", roomId);
+        // console.log("❌ Auction not found:", roomId);
         return socket.emit("error", "Auction not found");
       }
 
@@ -202,11 +204,11 @@ io.on("connection", (socket) => {
         message: `${username} joined the auction`,
       });
 
-      console.log(
+      // console.log(
         `✅ User ${username} joined auction ${roomId}. Online users: ${auction.onlineUsers.length}`
       );
     } catch (err) {
-      console.log("Join auction error:", err);
+      // console.log("Join auction error:", err);
       socket.emit("error", "Failed to join auction");
     }
   });
@@ -271,7 +273,7 @@ io.on("connection", (socket) => {
 
       io.to(roomId).emit("bid-update", bidUpdateData);
     } catch (err) {
-      console.log("Place bid error:", err);
+      // console.log("Place bid error:", err);
       socket.emit("error", "Failed to place bid");
     }
   });
@@ -311,19 +313,19 @@ io.on("connection", (socket) => {
         });
 
         socket.leave(roomId);
-        console.log(
+        // console.log(
           `User ${username} ${
             isCreator ? "(CREATOR)" : ""
           } left socket room ${roomId} (API already handled removal)`
         );
       } else {
         // For route changes and page unloads, just acknowledge but don't remove from online users
-        console.log(
+        // console.log(
           `User ${username} navigated away from auction ${roomId} but remains online`
         );
       }
     } catch (err) {
-      console.log("Error leaving auction:", err);
+      // console.log("Error leaving auction:", err);
     }
   });
 
@@ -360,16 +362,16 @@ io.on("connection", (socket) => {
           showAlert: true,
         });
 
-        console.log(`User ${username} disconnected from auction ${roomId}`);
+        // console.log(`User ${username} disconnected from auction ${roomId}`);
       }
 
-      console.log("User disconnected:", socket.id);
+      // console.log("User disconnected:", socket.id);
     } catch (err) {
-      console.log("Error on disconnect:", err);
+      // console.log("Error on disconnect:", err);
     }
   });
 });
 
 server.listen(process.env.PORT || 5000, () => {
-  console.log("server live on port", process.env.PORT || 5000);
+  // console.log("server live on port", process.env.PORT || 5000);
 });

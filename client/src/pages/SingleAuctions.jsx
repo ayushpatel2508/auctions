@@ -165,7 +165,7 @@ const SingleAuctions = () => {
         // Set up socket event listeners
         const handleAuctionJoined = (message) => {
             setHasJoined(true);
-            console.log("Auction joined:", message);
+            // console.log("Auction joined:", message);
             // Don't show alert for own join, just log it
             // fetchAuctionSingle(); // Remove this to prevent unnecessary API calls
         };
@@ -201,7 +201,7 @@ const SingleAuctions = () => {
 
         // Handle consecutive bid error
         const handleConsecutiveBidError = (data) => {
-            console.log("Consecutive bid error:", data);
+            // console.log("Consecutive bid error:", data);
             showToast(`⚠️ ${data.message}`, 'warning', 4000);
         };
         // Handle bid updates
@@ -279,7 +279,7 @@ You will be redirected to the auctions page...`.trim();
         };
         // Handle user quit notification
         const handleUserQuit = (data) => {
-            console.log("User quit auction - received data:", data);
+            // console.log("User quit auction - received data:", data);
 
             // Show toast for manual quits and disconnections
             if (data.showAlert && data.message) {
@@ -287,19 +287,19 @@ You will be redirected to the auctions page...`.trim();
             }
 
             // Update online users list with the updated list from server
-            console.log("Updating online users to:", data.onlineUsers);
+            // console.log("Updating online users to:", data.onlineUsers);
             setOnlineUsers(data.onlineUsers || []);
         };
 
         // Handle online users update (when someone joins)
         const handleOnlineUsersUpdate = (data) => {
-            console.log("Online users updated:", data);
+            // console.log("Online users updated:", data);
             setOnlineUsers(data.onlineUsers || []);
         };
 
         // Handle user joined notification (only received by OTHER users, not the joiner)
         const handleUserJoinedNotification = (data) => {
-            console.log("User joined notification:", data);
+            // console.log("User joined notification:", data);
             showToast(`${data.username} joined the auction`, 'info');
         };
 
@@ -394,23 +394,23 @@ You will be redirected to the auctions page...`.trim();
     const handleQuitAuction = async () => {
         if (!hasJoined || !socketRef.current) return;
 
-        console.log("🔥 QUIT AUCTION - Starting process...");
-        console.log("🔥 Current user:", user);
-        console.log("🔥 Auction creator:", auctionData?.auction?.createdBy);
-        console.log("🔥 Is creator:", auctionData?.auction?.createdBy === user);
+        // console.log("🔥 QUIT AUCTION - Starting process...");
+        // console.log("🔥 Current user:", user);
+        // console.log("🔥 Auction creator:", auctionData?.auction?.createdBy);
+        // console.log("🔥 Is creator:", auctionData?.auction?.createdBy === user);
 
         const confirmQuit = confirm("Are you sure you want to leave this auction? You can rejoin later if it's still active.");
 
         if (confirmQuit) {
             try {
-                console.log("🔥 User confirmed quit, calling API...");
+                // console.log("🔥 User confirmed quit, calling API...");
 
                 // Call API to quit auction (this will handle server-side cleanup)
                 const response = await auctionAPI.quitAuction(roomId);
-                console.log("🔥 API Response:", response);
+                // console.log("🔥 API Response:", response);
 
                 // Emit leave-auction to socket with manual quit reason
-                console.log("🔥 Emitting leave-auction socket event...");
+                // console.log("🔥 Emitting leave-auction socket event...");
                 socketRef.current.emit("leave-auction", {
                     roomId,
                     username: user,
