@@ -22,11 +22,14 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
-    origin: "https://auction-hub-*.vercel.app",
-    origin: "https://auction-hub.vercel.app",
-    origin: "https://auction-hub-eta.vercel.app",
-    credentials: true, // Allow cookies to be sent
+    origin: [
+      process.env.CLIENT_URL,
+      "https://auction-hub-*.vercel.app",
+      "https://auction-hub.vercel.app", 
+      "https://auction-hub-eta.vercel.app",
+      "http://localhost:5173"
+    ],
+    credentials: true,
   })
 );
 app.use(express.json());
