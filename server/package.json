@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "manage-indexes": "node scripts/manage-indexes.js",
+    "reset-db": "node scripts/manage-indexes.js"
   },
   "keywords": [],
   "author": "",

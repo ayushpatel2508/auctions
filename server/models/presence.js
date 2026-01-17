@@ -35,8 +35,9 @@ const presenceSchema = new mongoose.Schema({
 });
 
 // Indexes for fast lookups
-presenceSchema.index({ roomId: 1 });
-presenceSchema.index({ socketId: 1 }, { unique: true });
-presenceSchema.index({ username: 1, roomId: 1 });
+presenceSchema.index({ roomId: 1, status: 1 }); // Find online users in a room
+presenceSchema.index({ socketId: 1 }, { unique: true }); // Unique socket lookup
+presenceSchema.index({ username: 1, roomId: 1 }); // User presence in specific room
+presenceSchema.index({ status: 1, lastActive: -1 }); // Cleanup old disconnected records
 
 export const Presence = mongoose.model('Presence', presenceSchema);
