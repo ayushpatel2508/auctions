@@ -55,10 +55,10 @@ router.post("/login", async (req, res) => {
     }
 
     // console.log("✅ User found:", {
-      id: exists._id,
-      username: exists.username,
-      email: exists.email,
-    });
+    //   id: exists._id,
+    //   username: exists.username,
+    //   email: exists.email,
+    // });
 
     const isMatch = await bcrypt.compare(password, exists.password);
     if (!isMatch) {
@@ -70,10 +70,10 @@ router.post("/login", async (req, res) => {
 
     // 🔍 Debug: Log user info
     // console.log("🔐 User logging in:", {
-      userId: exists._id,
-      username: exists.username,
-      email: exists.email,
-    });
+    //   userId: exists._id,
+    //   username: exists.username,
+    //   email: exists.email,
+    // });
 
     const token = jwt.sign({ id: exists._id }, process.env.JWT_SECRET || "SECRET_123", {
       expiresIn: "1d",
