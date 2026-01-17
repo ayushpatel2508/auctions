@@ -55,10 +55,10 @@ router.post("/login", async (req, res) => {
     }
 
     console.log("✅ User found:", {
-    //   id: exists._id,
-    //   username: exists.username,
-    //   email: exists.email,
-    // });
+      id: exists._id,
+      username: exists.username,
+      email: exists.email,
+    });
 
     const isMatch = await bcrypt.compare(password, exists.password);
     if (!isMatch) {
@@ -70,14 +70,18 @@ router.post("/login", async (req, res) => {
 
     // 🔍 Debug: Log user info
     console.log("🔐 User logging in:", {
-    //   userId: exists._id,
-    //   username: exists.username,
-    //   email: exists.email,
-    // });
-
-    const token = jwt.sign({ id: exists._id }, process.env.JWT_SECRET || "SECRET_123", {
-      expiresIn: "1d",
+      userId: exists._id,
+      username: exists.username,
+      email: exists.email,
     });
+
+    const token = jwt.sign(
+      { id: exists._id },
+      process.env.JWT_SECRET || "SECRET_123",
+      {
+        expiresIn: "1d",
+      }
+    );
 
     // 🔍 Debug: Log generated token
     console.log("🎫 Generated token:", token.substring(0, 50) + "...");
@@ -112,13 +116,13 @@ router.post("/logout", isLoggedIn, (req, res) => {
 // Verify token endpoint - check if user is still authenticated
 router.get("/verify", isLoggedIn, (req, res) => {
   // If middleware passes, token is valid
-  res.json({ 
-    success: true, 
+  res.json({
+    success: true,
     user: {
       id: req.user._id,
       username: req.user.username,
-      email: req.user.email
-    }
+      email: req.user.email,
+    },
   });
 });
 
