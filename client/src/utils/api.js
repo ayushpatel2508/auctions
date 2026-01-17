@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://auctions-backend.onrender.com";
 
 // Configure axios to send cookies with requests
 axios.defaults.withCredentials = true;
@@ -11,7 +12,7 @@ const getAuthHeaders = () => {
     headers: {
       "Content-Type": "application/json",
     },
-    withCredentials: true // This ensures cookies are sent with the request
+    withCredentials: true, // This ensures cookies are sent with the request
   };
 };
 
@@ -19,11 +20,22 @@ const getAuthHeaders = () => {
 // 1. AUTHENTICATION ROUTES
 // ==========================
 export const authAPI = {
-  login: (credentials) => axios.post(`${BASE_URL}/auth/login`, credentials, { withCredentials: true }),
+  login: (credentials) =>
+    axios.post(`${BASE_URL}/auth/login`, credentials, {
+      withCredentials: true,
+    }),
 
-  register: (userData) => axios.post(`${BASE_URL}/auth/register`, userData, { withCredentials: true }),
+  register: (userData) =>
+    axios.post(`${BASE_URL}/auth/register`, userData, {
+      withCredentials: true,
+    }),
 
-  logout: () => axios.post(`${BASE_URL}/auth/logout`, {}, { ...getAuthHeaders(), withCredentials: true }),
+  logout: () =>
+    axios.post(
+      `${BASE_URL}/auth/logout`,
+      {},
+      { ...getAuthHeaders(), withCredentials: true }
+    ),
 };
 
 // ==========================
