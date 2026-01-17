@@ -53,9 +53,17 @@ const io = new Server(server, {
   },
 });
 
-// Connect to database
-connect();
+const dbConnecting = async () => {
+  try {
+    await connect();
+    console.log("✅ Database connected successfully");
+  } catch (error) {
+    console.error("❌ Failed to connect to database:", error);
+    process.exit(1); // Exit if DB connection fails
+  }
+};
 
+dbConnecting();
 // Function to check and end expired auctions
 const checkExpiredAuctions = async () => {
   try {
