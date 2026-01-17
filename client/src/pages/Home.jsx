@@ -14,15 +14,15 @@ const Home = () => {
     const [showAllCreated, setShowAllCreated] = useState(false);
 
     useEffect(() => {
-        // console.log("🔍 Home useEffect triggered");
-        // console.log("🔍 isAuthenticated:", isAuthenticated);
-        // console.log("🔍 user:", user);
+        console.log("🔍 Home useEffect triggered");
+        console.log("🔍 isAuthenticated:", isAuthenticated);
+        console.log("🔍 user:", user);
 
         if (isAuthenticated) {
-            // console.log("✅ User is authenticated, fetching auctions...");
+            console.log("✅ User is authenticated, fetching auctions...");
             fetchUserAuctions();
         } else {
-            // console.log("❌ User not authenticated, skipping fetch");
+            console.log("❌ User not authenticated, skipping fetch");
             setLoading(false);
         }
     }, [isAuthenticated]); // Remove fetchUserAuctions from dependencies
@@ -30,18 +30,18 @@ const Home = () => {
     const fetchUserAuctions = async () => {
         try {
             setLoading(true);
-            // console.log("🔍 Starting fetchUserAuctions...");
-            // console.log("🔍 User authenticated:", isAuthenticated);
-            // console.log("🔍 Current user:", user);
-            // console.log("🔍 Making API calls...");
+            console.log("🔍 Starting fetchUserAuctions...");
+            console.log("🔍 User authenticated:", isAuthenticated);
+            console.log("🔍 Current user:", user);
+            console.log("🔍 Making API calls...");
 
             const [joinedRes, createdRes] = await Promise.all([
                 userAPI.getJoinedAuctions(),
                 userAPI.getMyAuctions()
             ]);
 
-            // console.log("✅ Joined auctions response:", joinedRes);
-            // console.log("✅ Created auctions response:", createdRes);
+            console.log("✅ Joined auctions response:", joinedRes);
+            console.log("✅ Created auctions response:", createdRes);
 
             // Sort by newest first (createdAt descending)
             const sortedJoined = (joinedRes.data.auctions || []).sort((a, b) =>
@@ -65,10 +65,10 @@ const Home = () => {
     const handleQuit = async (roomId) => {
         try {
             const ypos = window.scrollY
-            // console.log("Quitting auction:", roomId)
+            console.log("Quitting auction:", roomId)
 
             const res = await auctionAPI.quitAuction(roomId)
-            // console.log("Quit successful:", res)
+            console.log("Quit successful:", res)
 
             // Remove from local state instead of refetching (better UX)
             setJoinedAuctions(prev => prev.filter(auction => auction.roomId !== roomId))
@@ -76,7 +76,7 @@ const Home = () => {
             window.scrollTo(0, ypos)
         }
         catch (err) {
-            // console.log(err, "Error quitting auction")
+            console.log(err, "Error quitting auction")
             alert("Failed to quit auction")
         }
     }
@@ -84,10 +84,10 @@ const Home = () => {
     const handleDelete = async (roomId) => {
         try {
             const ypos = window.scrollY
-            // console.log("Deleting auction:", roomId)
+            console.log("Deleting auction:", roomId)
 
             const res = await auctionAPI.endAuction(roomId)
-            // console.log("Delete successful:", res)
+            console.log("Delete successful:", res)
 
             // Remove from local state
             setCreatedAuctions(prev => prev.filter(auction => auction.roomId !== roomId))
@@ -95,7 +95,7 @@ const Home = () => {
             window.scrollTo(0, ypos)
         }
         catch (err) {
-            // console.log(err, "Error deleting auction")
+            console.log(err, "Error deleting auction")
             alert("Failed to delete auction")
         }
     }

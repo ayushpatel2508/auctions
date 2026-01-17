@@ -86,14 +86,14 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            // console.log('🚀 Register attempt with data:', formData);
-            // console.log('🌐 Making API call to register...');
+            console.log('🚀 Register attempt with data:', formData);
+            console.log('🌐 Making API call to register...');
 
             const res = await authAPI.register(formData);
 
-            // console.log('✅ Register SUCCESS response received:', res);
-            // console.log('✅ Response data:', res.data);
-            // console.log('✅ Response status:', res.status);
+            console.log('✅ Register SUCCESS response received:', res);
+            console.log('✅ Response data:', res.data);
+            console.log('✅ Response status:', res.status);
 
             if (res.data.success) {
                 alert('Registration successful! Redirecting to login...');
@@ -113,14 +113,14 @@ const Register = () => {
             }
 
         } catch (error) {
-            // console.log('❌ Register ERROR caught:', error);
-            // console.log('❌ Error response object:', error.response);
-            // console.log('❌ Error data:', error.response?.data);
-            // console.log('❌ Error status:', error.response?.status);
-            // console.log('❌ Error message from server:', error.response?.data?.msg);
+            console.log('❌ Register ERROR caught:', error);
+            console.log('❌ Error response object:', error.response);
+            console.log('❌ Error data:', error.response?.data);
+            console.log('❌ Error status:', error.response?.status);
+            console.log('❌ Error message from server:', error.response?.data?.msg);
 
             const errorMsg = error.response?.data?.msg || 'Registration failed';
-            // console.log('❌ Final error message for alert:', errorMsg);
+            console.log('❌ Final error message for alert:', errorMsg);
 
             alert(`Registration failed: ${errorMsg}`);
         } finally {

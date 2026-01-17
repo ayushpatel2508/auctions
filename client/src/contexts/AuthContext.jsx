@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
                             // Token is valid
                             setUser(storedUser);
                             setIsAuthenticated(true);
-                            // console.log('✅ User authenticated:', storedUser);
+                            console.log('✅ User authenticated:', storedUser);
                             console.log('✅ User authenticated:');
                         } else {
                             // Token expired or invalid
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
                     // No user logged in
                     setUser(null);
                     setIsAuthenticated(false);
-                    // console.log('ℹ️ No user logged in');
+                    console.log('ℹ️ No user logged in');
                 }
             } catch (error) {
                 console.error("Auth check failed:", error);
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         setUser(username);
         setIsAuthenticated(true);
 
-        // console.log('✅ User logged in:', username);
+        console.log('✅ User logged in:', username);
     };
 
     const logout = () => {
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setIsAuthenticated(false);
 
-        // console.log('✅ User logged out');
+        console.log('✅ User logged out');
     };
 
     if (loading) {
