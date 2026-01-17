@@ -13,8 +13,14 @@ dotenv.config();
 
 // Debug: Check if environment variables are loaded
 console.log("🔍 Environment variables loaded:");
-console.log("- JWT_SECRET:", process.env.JWT_SECRET ? "✅ Loaded" : "❌ Missing");
-console.log("- MONGODB_URI:", process.env.MONGODB_URI ? "✅ Loaded" : "❌ Missing");
+console.log(
+  "- JWT_SECRET:",
+  process.env.JWT_SECRET ? "✅ Loaded" : "❌ Missing"
+);
+console.log(
+  "- MONGODB_URI:",
+  process.env.MONGODB_URI ? "✅ Loaded" : "❌ Missing"
+);
 console.log("- NODE_ENV:", process.env.NODE_ENV || "development");
 
 // Import models
@@ -33,7 +39,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173", /\.vercel\.app$/],
+    origin: [/\.vercel\.app$/],
     credentials: true,
   })
 );
@@ -68,10 +74,9 @@ const dbConnecting = async () => {
   try {
     await connect();
     console.log("✅ Database connected successfully");
-    
+
     // Start checking expired auctions only after DB is connected
     startExpiredAuctionsCheck();
-    
   } catch (error) {
     console.error("❌ Failed to connect to database:", error);
     // Exit if DB connection fails - removed process.exit for production
@@ -82,7 +87,7 @@ const dbConnecting = async () => {
 const startExpiredAuctionsCheck = () => {
   // Run immediately once
   checkExpiredAuctions();
-  
+
   // Then run every 30 seconds
   setInterval(checkExpiredAuctions, 30000);
   console.log("✅ Expired auctions check started");
