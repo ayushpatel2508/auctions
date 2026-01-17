@@ -207,8 +207,7 @@ io.on("connection", (socket) => {
       // console.log(
       //   `✅ User ${username} joined auction ${roomId}. Online users: ${auction.onlineUsers.length}`
       // );
-    } 
-    catch (err) {
+    } catch (err) {
       // console.log("Join auction error:", err);
       socket.emit("error", "Failed to join auction");
     }
@@ -315,15 +314,15 @@ io.on("connection", (socket) => {
 
         socket.leave(roomId);
         // console.log(
-          `User ${username} ${
-            isCreator ? "(CREATOR)" : ""
-          } left socket room ${roomId} (API already handled removal)`
-        );
+        //   `User ${username} ${
+        //     isCreator ? "(CREATOR)" : ""
+        //   } left socket room ${roomId} (API already handled removal)`
+        // );
       } else {
         // For route changes and page unloads, just acknowledge but don't remove from online users
         // console.log(
-          `User ${username} navigated away from auction ${roomId} but remains online`
-        );
+        //   `User ${username} navigated away from auction ${roomId} but remains online`
+        // );
       }
     } catch (err) {
       // console.log("Error leaving auction:", err);
