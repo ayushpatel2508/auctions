@@ -18,16 +18,30 @@ This project uses environment variables for configuration. Follow these steps to
 ## Client Setup
 
 1. Navigate to the `client` directory
-2. Copy the example environment file:
+2. Copy the appropriate environment file:
+   
+   **For Development:**
    ```bash
    cp .env.example .env
    ```
+   
+   **For Production:**
+   ```bash
+   cp .env.production .env
+   ```
+   
 3. Update the values in `.env` if needed:
    - `VITE_API_BASE_URL`: Should match your server URL
    - `VITE_SOCKET_URL`: Should match your server URL
 
 ## Production Deployment
 
+For production, you have two options:
+
+### Option 1: Use .env.production file
+The project includes a `.env.production` file with production URLs. Vite will automatically use this file when building for production.
+
+### Option 2: Set environment variables manually
 For production, make sure to:
 
 1. **Server Environment Variables:**

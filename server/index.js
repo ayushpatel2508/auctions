@@ -22,7 +22,8 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173", // Your frontend URL
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: "https://your-client.vercel.app", // Your frontend URL
     credentials: true, // Allow cookies to be sent
   })
 );
@@ -44,7 +45,10 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.SOCKET_CORS_ORIGIN || process.env.CLIENT_URL || "http://localhost:5173",
+    origin:
+      process.env.SOCKET_CORS_ORIGIN ||
+      process.env.CLIENT_URL ||
+      "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -235,9 +239,10 @@ io.on("connection", (socket) => {
       // Check if the user is trying to bid consecutively (same user as highest bidder)
       if (auction.highestBidder === username) {
         return socket.emit("consecutive-bid-error", {
-          message: "You cannot place consecutive bids. Wait for another user to bid first.",
+          message:
+            "You cannot place consecutive bids. Wait for another user to bid first.",
           currentBid: auction.currentBid,
-          highestBidder: auction.highestBidder
+          highestBidder: auction.highestBidder,
         });
       }
 
@@ -291,7 +296,7 @@ io.on("connection", (socket) => {
         const isCreator = auction && auction.createdBy === username;
 
         // Send different notifications based on whether user is creator or not
-        const notificationMessage = isCreator 
+        const notificationMessage = isCreator
           ? `👑 Auction creator ${username} has left the auction. The auction continues without them.`
           : `${username} has left the auction`;
 
@@ -307,7 +312,9 @@ io.on("connection", (socket) => {
 
         socket.leave(roomId);
         console.log(
-          `User ${username} ${isCreator ? '(CREATOR)' : ''} left socket room ${roomId} (API already handled removal)`
+          `User ${username} ${
+            isCreator ? "(CREATOR)" : ""
+          } left socket room ${roomId} (API already handled removal)`
         );
       } else {
         // For route changes and page unloads, just acknowledge but don't remove from online users
