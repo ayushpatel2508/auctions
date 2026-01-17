@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
-    origin: "https://auctionhub.vercel.app", // Your frontend URL
+    origin: "https://auction-hub.vercel.app", // Your frontend URL
     credentials: true, // Allow cookies to be sent
   })
 );
