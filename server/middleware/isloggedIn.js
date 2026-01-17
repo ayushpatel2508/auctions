@@ -14,7 +14,7 @@ export const isLoggedIn = async (req, res, next) => {
     }
 
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "SECRET_123");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     // Find user
     const user = await User.findById(decoded.id).select('-password');
@@ -31,6 +31,7 @@ export const isLoggedIn = async (req, res, next) => {
     next();
 
   } catch (err) {
+    console.error("❌ Auth middleware error:", err);
     res.status(401).json({
       success: false,
       msg: "Invalid token."

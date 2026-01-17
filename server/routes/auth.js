@@ -1,8 +1,12 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import { User } from "../models/user.js"; // Fixed: Added .js extension
 import { isLoggedIn } from "../middleware/isloggedIn.js";
+
+// Ensure environment variables are loaded
+dotenv.config();
 
 const router = express.Router();
 
@@ -14,27 +18,79 @@ router.get("/test", (req, res) => {
 
 // 1. REGISTER
 router.post("/register", async (req, res) => {
+  console.log("🔥 REGISTER ROUTE HIT!");
+  console.log("📥 Request body:", req.body);
+
   try {
-    const { email, password, username } = req.body; // Removed ()
+    const { email, password, username } = req.body;
 
+    // Validation
+    if (!email || !password || !username) {
+      return res.status(400).json({ 
+        success: false,
+        msg: "All fields are required" 
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ 
+        success: false,
+        msg: "Password must be at least 6 characters" 
+      });
+    }
+
+    console.log("🔍 Checking if user exists with email:", email);
     const exists = await User.findOne({ email });
-    if (exists) return res.status(400).json({ msg: "User already exists" });
+    if (exists) {
+      console.log("❌ User already exists with email:", email);
+      return res.status(400).json({ 
+        success: false,
+        msg: "User already exists" 
+      });
+    }
 
-    // 🔑 IMPORTANT: await the hash!
+    console.log("🔍 Checking if username is taken:", username);
+    const usernameExists = await User.findOne({ username });
+    if (usernameExists) {
+      console.log("❌ Username already taken:", username);
+      return res.status(400).json({ 
+        success: false,
+        msg: "Username already taken" 
+      });
+    }
+
+    console.log("🔐 Hashing password...");
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    console.log("💾 Creating new user...");
     const newUser = await User.create({
       email,
       password: hashedPassword,
       username,
     });
 
+    console.log("✅ User created successfully:", {
+      id: newUser._id,
+      username: newUser.username,
+      email: newUser.email
+    });
+
     res.status(201).json({
       success: true,
-      user: { username: newUser.username, email: newUser.email },
+      msg: "User registered successfully",
+      user: { 
+        id: newUser._id,
+        username: newUser.username, 
+        email: newUser.email 
+      },
     });
   } catch (err) {
-    res.status(500).json({ msg: "Error in register", error: err.message });
+    console.error("❌ Register error:", err);
+    res.status(500).json({ 
+      success: false,
+      msg: "Error in register", 
+      error: err.message 
+    });
   }
 });
 
@@ -68,6 +124,15 @@ router.post("/login", async (req, res) => {
 
     console.log("✅ Password match! Generating token...");
 
+    // Check if JWT_SECRET is available
+    if (!process.env.JWT_SECRET) {
+      console.error("❌ JWT_SECRET is not defined in environment variables!");
+      return res.status(500).json({ 
+        success: false,
+        msg: "Server configuration error" 
+      });
+    }
+
     // 🔍 Debug: Log user info
     console.log("🔐 User logging in:", {
       userId: exists._id,
@@ -76,24 +141,25 @@ router.post("/login", async (req, res) => {
     });
 
     const token = jwt.sign(
-      { id: exists._id },
-      process.env.JWT_SECRET || "SECRET_123",
-      {
-        expiresIn: "1d",
-      }
+      { 
+        id: exists._id,
+        userId: exists._id, 
+        username: exists.username 
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
     // 🔍 Debug: Log generated token
     console.log("🎫 Generated token:", token.substring(0, 50) + "...");
 
-    // 🔑 Set cookie with explicit domain and path
+    // 🔑 Set cookie with proper configuration
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-      domain: "localhost", // Explicit domain
-      path: "/", // Explicit path
-      sameSite: "lax", // Help with cross-origin issues
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      path: "/",
     });
 
     console.log("🍪 Cookie set successfully!");

@@ -2,7 +2,19 @@ import mongoose from "mongoose";
 
 export const connect = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI;
+    const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/auctions";
+    
+    // Configure mongoose options for production
+    const options = {
+      // Prevent duplicate index warnings in production
+      autoIndex: process.env.AUTO_CREATE_INDEXES === 'true' || process.env.NODE_ENV !== 'production',
+      // Connection pool settings
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      // Connection timeout
+      connectTimeoutMS: 10000,
+    };
 
     await mongoose.connect(mongoUri, options);
 
@@ -24,7 +36,9 @@ export const connect = async () => {
       await mongoose.connection.close();
       console.log("🔒 MongoDB connection closed through app termination");
     });
+
   } catch (error) {
     console.error("❌ Problem connecting to database:", error.message);
+    throw error; // Re-throw to handle in calling function
   }
 };

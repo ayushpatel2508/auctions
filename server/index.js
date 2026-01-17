@@ -4,7 +4,18 @@ import { Server } from "socket.io";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { rateLimit } from "express-rate-limit";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import { connect } from "./dbconnect/dbconnect.js";
+
+// Load environment variables
+dotenv.config();
+
+// Debug: Check if environment variables are loaded
+console.log("🔍 Environment variables loaded:");
+console.log("- JWT_SECRET:", process.env.JWT_SECRET ? "✅ Loaded" : "❌ Missing");
+console.log("- MONGODB_URI:", process.env.MONGODB_URI ? "✅ Loaded" : "❌ Missing");
+console.log("- NODE_ENV:", process.env.NODE_ENV || "development");
 
 // Import models
 import { Auction } from "./models/auction.js";
@@ -57,16 +68,36 @@ const dbConnecting = async () => {
   try {
     await connect();
     console.log("✅ Database connected successfully");
+    
+    // Start checking expired auctions only after DB is connected
+    startExpiredAuctionsCheck();
+    
   } catch (error) {
     console.error("❌ Failed to connect to database:", error);
     // Exit if DB connection fails - removed process.exit for production
   }
 };
 
+// Function to start the expired auctions check interval
+const startExpiredAuctionsCheck = () => {
+  // Run immediately once
+  checkExpiredAuctions();
+  
+  // Then run every 30 seconds
+  setInterval(checkExpiredAuctions, 30000);
+  console.log("✅ Expired auctions check started");
+};
+
 dbConnecting();
 // Function to check and end expired auctions
 const checkExpiredAuctions = async () => {
   try {
+    // Check if database is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.log("⚠️ Database not connected, skipping expired auctions check");
+      return;
+    }
+
     const now = new Date();
     const expiredAuctions = await Auction.find({
       status: "active",
@@ -129,9 +160,6 @@ const checkExpiredAuctions = async () => {
     console.error("Error checking expired auctions:", error);
   }
 };
-
-// Check for expired auctions every 30 seconds
-setInterval(checkExpiredAuctions, 30000);
 
 // Set up routes
 app.use("/api/auth", authRoutes);
