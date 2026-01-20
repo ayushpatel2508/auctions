@@ -39,40 +39,16 @@ import userRoutes from "./routes/user_route.js";
 const app = express();
 
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      
-      const allowedOrigins = [
-        process.env.CLIENT_URL || "http://localhost:5173",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        /\.vercel\.app$/,
-      ];
-      
-      const isAllowed = allowedOrigins.some(allowedOrigin => {
-        if (typeof allowedOrigin === 'string') {
-          return origin === allowedOrigin;
-        } else if (allowedOrigin instanceof RegExp) {
-          return allowedOrigin.test(origin);
-        }
-        return false;
-      });
-      
-      if (isAllowed) {
-        callback(null, true);
-      } else {
-        console.log('❌ CORS blocked origin:', origin);
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
-  })
-);
+
+// CORS Configuration
+const corsOptions = {
+  origin: process.env.CLIENT_URL?.split(',') || ['http://localhost:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Cookie']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const limiter = rateLimit({
@@ -89,17 +65,12 @@ app.use(limiter);
 
 const server = createServer(app);
 
+// Socket.IO Configuration
 const io = new Server(server, {
   cors: {
-    origin: [
-      process.env.SOCKET_CORS_ORIGIN || "http://localhost:5173",
-      process.env.CLIENT_URL || "http://localhost:5173",
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
-    ],
-    methods: ["GET", "POST"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: process.env.SOCKET_CORS_ORIGIN?.split(',') || ['http://localhost:5173'],
+    methods: ['GET', 'POST'],
+    credentials: true
   },
 });
 

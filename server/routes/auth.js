@@ -75,8 +75,22 @@ router.post("/register", async (req, res) => {
       email: newUser.email
     });
 
-    // Generate JWT token for auto-login after registration
-    console.log("🎫 Generating token for new user...");
+    // Check if JWT_SECRET is available
+    if (!process.env.JWT_SECRET) {
+      console.error("❌ JWT_SECRET is not defined in environment variables!");
+      return res.status(500).json({ 
+        success: false,
+        msg: "Server configuration error" 
+      });
+    }
+
+    // 🔍 Debug: Log user info
+    console.log("🔐 User registering:", {
+      userId: newUser._id,
+      username: newUser.username,
+      email: newUser.email,
+    });
+
     const token = jwt.sign(
       { 
         id: newUser._id,
@@ -87,7 +101,10 @@ router.post("/register", async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
-    // Set authentication cookie (same as login)
+    // 🔍 Debug: Log generated token
+    console.log("🎫 Generated token:", token.substring(0, 50) + "...");
+
+    // 🔑 Set cookie with proper configuration (same as login)
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -96,11 +113,12 @@ router.post("/register", async (req, res) => {
       path: "/",
     });
 
-    console.log("🍪 Authentication cookie set for new user!");
+    console.log("🍪 Cookie set successfully!");
 
     res.status(201).json({
       success: true,
       msg: "User registered successfully",
+      username: newUser.username, // Same field as login response
       user: { 
         id: newUser._id,
         username: newUser.username, 

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 
 const Register = () => {
-    const {login} = useAuth()
+    const { login } = useAuth()
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -110,10 +110,10 @@ const Register = () => {
                 setErrors({});
 
                 // Login user (this handles localStorage automatically)
-               await login(res.data.user.username);
-                navigate('/auctions');
+                login(res.data.user.username);
 
                 // Redirect to auctions page
+                navigate('/auctions');
             }
 
         } catch (error) {
