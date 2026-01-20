@@ -56,7 +56,10 @@ router.post("/auction/create", isLoggedIn, async (req, res) => {
 // GET ALL AUCTIONS
 router.get("/auctions", async (req, res) => {
   try {
-    const auctions = await Auction.find({ status: "active" }).sort({
+    // Fetch both active and ended auctions
+    const auctions = await Auction.find({ 
+      status: { $in: ["active", "ended"] } 
+    }).sort({
       createdAt: -1,
     });
 

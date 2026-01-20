@@ -1,9 +1,11 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { authAPI } from '@/utils/api';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 
 const Register = () => {
+    const {login} = useAuth()
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -96,8 +98,9 @@ const Register = () => {
             console.log('✅ Response status:', res.status);
 
             if (res.data.success) {
-                alert('Registration successful! Redirecting to login...');
-                // Clear form only after successful registration
+                alert('Registration successful! Redirecting to auctions...');
+
+                // Clear form
                 setFormData({
                     username: '',
                     email: '',
@@ -106,10 +109,11 @@ const Register = () => {
                 });
                 setErrors({});
 
-                // Redirect to login page after 1 second
-                setTimeout(() => {
-                    navigate('/login');
-                }, 1000);
+                // Login user (this handles localStorage automatically)
+               await login(res.data.user.username);
+                navigate('/auctions');
+
+                // Redirect to auctions page
             }
 
         } catch (error) {

@@ -119,10 +119,13 @@ const Home = () => {
         }
     };
 
+    
+
     const AuctionCard = ({ auction, cardType = "joined" }) => (
-        <div className="card p-6 hover:transform hover:scale-[1.02] transition-all duration-300">
+        
+            <div className="card p-6 hover:transform hover:scale-[1.02] transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">{auction.title}</h3>
+            <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">{auction.title}</h3>
                 <div className={`px-3 py-1 rounded-full text-xs font-semibold ${auction.status === 'active'
                     ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                     : 'bg-red-500/20 text-red-400 border border-red-500/30'
@@ -132,20 +135,20 @@ const Home = () => {
             </div>
 
             <p className="text-gray-400 mb-6 line-clamp-2 text-sm leading-relaxed">
-                {auction.description || 'No description provided'}
+            {auction.description || 'No description provided'}
             </p>
-
+            
             <div className="space-y-4 mb-6">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-lg p-3">
-                        <p className="text-xs text-gray-400 mb-1">
+            <div className="grid grid-cols-2 gap-4">
+            <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-lg p-3">
+            <p className="text-xs text-gray-400 mb-1">
                             {auction.status === 'active' ? 'Current Bid' : 'Final Bid'}
                         </p>
                         <p className="text-lg font-bold text-green-400">${auction.currentBid}</p>
                     </div>
                     <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-lg p-3">
-                        <p className="text-xs text-gray-400 mb-1">Status</p>
-                        <p className={`text-sm font-medium ${auction.status === 'active' ? 'text-green-400' : 'text-red-400'
+                    <p className="text-xs text-gray-400 mb-1">Status</p>
+                    <p className={`text-sm font-medium ${auction.status === 'active' ? 'text-green-400' : 'text-red-400'
                             }`}>
                             {auction.status === 'active' ? formatTimeLeft(auction.endTime) : 'Ended'}
                         </p>
@@ -153,16 +156,16 @@ const Home = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        {auction.createdBy.charAt(0).toUpperCase()}
-                    </div>
-                    <span className="text-sm text-gray-400">Created by</span>
-                    <span className="text-sm text-white font-medium">{auction.createdBy}</span>
+                <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                {auction.createdBy.charAt(0).toUpperCase()}
                 </div>
-
+                <span className="text-sm text-gray-400">Created by</span>
+                <span className="text-sm text-white font-medium">{auction.createdBy}</span>
+                </div>
+                
                 {/* Action Buttons */}
                 <div className="pt-2">
-                    {cardType === "created" ? (
+                {cardType === "created" ? (
                         // For created auctions
                         auction.status === 'active' ? (
                             <button
@@ -179,10 +182,10 @@ const Home = () => {
                                 </span>
                             </div>
                         )
-                    ) : (
-                        // For joined auctions
-                        auction.status === 'active' ? (
-                            <button
+                        ) : (
+                            // For joined auctions
+                            auction.status === 'active' ? (
+                                <button
                                 onClick={() => handleQuit(auction.roomId)}
                                 className="btn btn-warning w-full text-sm"
                             >
@@ -200,18 +203,19 @@ const Home = () => {
                             </div>
                         )
                     )}
-                </div>
-            </div>
-
-            <button
-                onClick={() => navigate(`/auction/${auction.roomId}`)}
-                className={`btn w-full ${auction.status === 'active' ? 'btn-primary' : 'btn-secondary'}`}
-            >
+                    </div>
+                    </div>
+                    
+                    <button
+                    onClick={() => navigate(`/auction/${auction.roomId}`)}
+                    className={`btn w-full ${auction.status === 'active' ? 'btn-primary' : 'btn-secondary'}`}
+                    >
                 <span>{auction.status === 'active' ? '🎯' : '📊'}</span>
                 {auction.status === 'active' ? 'View Auction' : 'View Results'}
             </button>
-        </div>
-    );
+            </div>
+        
+        );
 
     if (!isAuthenticated) {
         return (

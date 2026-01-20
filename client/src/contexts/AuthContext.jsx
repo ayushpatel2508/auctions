@@ -71,7 +71,18 @@ export const AuthProvider = ({ children }) => {
         console.log('✅ User logged in:', username);
     };
 
-    const logout = () => {
+    const logout = async () => {
+        try {
+            // Call backend logout API to clear cookie
+            await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/auth/logout`, {
+                method: 'POST',
+                credentials: 'include', // Send cookies
+            });
+        } catch (error) {
+            console.error('Backend logout failed:', error);
+            // Continue with frontend logout even if backend fails
+        }
+
         // Clear user data from localStorage
         localStorage.removeItem('currentUser');
 

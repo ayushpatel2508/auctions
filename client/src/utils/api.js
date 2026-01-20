@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://auctions-backend.onrender.com";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 // Configure axios to send cookies with requests
 axios.defaults.withCredentials = true;

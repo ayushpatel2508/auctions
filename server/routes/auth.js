@@ -75,6 +75,29 @@ router.post("/register", async (req, res) => {
       email: newUser.email
     });
 
+    // Generate JWT token for auto-login after registration
+    console.log("🎫 Generating token for new user...");
+    const token = jwt.sign(
+      { 
+        id: newUser._id,
+        userId: newUser._id, 
+        username: newUser.username 
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
+    );
+
+    // Set authentication cookie (same as login)
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      path: "/",
+    });
+
+    console.log("🍪 Authentication cookie set for new user!");
+
     res.status(201).json({
       success: true,
       msg: "User registered successfully",
@@ -175,8 +198,18 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", isLoggedIn, (req, res) => {
-  res.clearCookie("token");
-  res.json({ msg: "logged out success" });
+  console.log("🚪 LOGOUT ROUTE HIT!");
+  
+  // Clear cookie with same configuration as when it was set
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
+  });
+  
+  console.log("🍪 Cookie cleared successfully!");
+  res.json({ success: true, msg: "logged out success" });
 });
 
 // Verify token endpoint - check if user is still authenticated

@@ -21,6 +21,8 @@ console.log(
   "- MONGODB_URI:",
   process.env.MONGODB_URI ? "✅ Loaded" : "❌ Missing"
 );
+console.log("- CLIENT_URL:", process.env.CLIENT_URL || "http://localhost:5173");
+console.log("- SOCKET_CORS_ORIGIN:", process.env.SOCKET_CORS_ORIGIN || "http://localhost:5173");
 console.log("- NODE_ENV:", process.env.NODE_ENV || "development");
 
 // Import models
@@ -39,8 +41,36 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [/\.vercel\.app$/],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      const allowedOrigins = [
+        process.env.CLIENT_URL || "http://localhost:5173",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        /\.vercel\.app$/,
+      ];
+      
+      const isAllowed = allowedOrigins.some(allowedOrigin => {
+        if (typeof allowedOrigin === 'string') {
+          return origin === allowedOrigin;
+        } else if (allowedOrigin instanceof RegExp) {
+          return allowedOrigin.test(origin);
+        }
+        return false;
+      });
+      
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        console.log('❌ CORS blocked origin:', origin);
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
   })
 );
 app.use(express.json());
@@ -61,12 +91,15 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin:
-      process.env.SOCKET_CORS_ORIGIN ||
-      process.env.CLIENT_URL ||
+    origin: [
+      process.env.SOCKET_CORS_ORIGIN || "http://localhost:5173",
+      process.env.CLIENT_URL || "http://localhost:5173",
       "http://localhost:5173",
+      "http://127.0.0.1:5173",
+    ],
     methods: ["GET", "POST"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
 });
 

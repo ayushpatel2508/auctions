@@ -1,23 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [mobileSearchTerm, setMobileSearchTerm] = useState('');
 
     // Check if user is logged in and get user info
     const isLoggedIn = !!user;
-    const isAdmin = user?.role === 'admin';
 
     const handleLogout = async () => {
         try {
-            navigate('/login');
             await logout();
+            navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
             navigate('/login');
         }
+    };
+
+    const handleSearch = (term) => {
+        if (term.trim()) {
+            navigate(`/auctions?search=${encodeURIComponent(term.trim())}`);
+        } else {
+            navigate('/auctions');
+        }
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        handleSearch(searchTerm);
+    };
+
+    const handleMobileSearchSubmit = (e) => {
+        e.preventDefault();
+        handleSearch(mobileSearchTerm);
     };
 
     return (
@@ -36,18 +55,23 @@ const Navbar = () => {
                     </div>
 
                     {/* Search Bar */}
-                    <div className="hidden md:flex flex-1 max-w-md mx-8">
-                        <div className="relative w-full">
+                    {/* <div className="hidden md:flex flex-1 max-w-md mx-8">
+                        <form onSubmit={handleSearchSubmit} className="relative w-full">
                             <input
                                 type="text"
                                 placeholder="Search auctions..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent backdrop-blur-sm transition-all duration-300"
                             />
-                            <button className="absolute right-3 top-3 text-purple-400 hover:text-purple-300 transition-colors text-lg">
+                            <button
+                                type="submit"
+                                className="absolute right-3 top-3 text-purple-400 hover:text-purple-300 transition-colors text-lg"
+                            >
                                 🔍
                             </button>
-                        </div>
-                    </div>
+                        </form>
+                    </div> */}
 
                     {/* Navigation Links */}
                     <div className="flex items-center space-x-6">
@@ -69,7 +93,7 @@ const Navbar = () => {
                                 <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-indigo-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                             </Link>
 
-                            
+
                         </div>
 
                         {/* User Section */}
