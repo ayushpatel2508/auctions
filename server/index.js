@@ -22,7 +22,10 @@ console.log(
   process.env.MONGODB_URI ? "✅ Loaded" : "❌ Missing"
 );
 console.log("- CLIENT_URL:", process.env.CLIENT_URL || "http://localhost:5173");
-console.log("- SOCKET_CORS_ORIGIN:", process.env.SOCKET_CORS_ORIGIN || "http://localhost:5173");
+console.log(
+  "- SOCKET_CORS_ORIGIN:",
+  process.env.SOCKET_CORS_ORIGIN || "http://localhost:5173"
+);
 console.log("- NODE_ENV:", process.env.NODE_ENV || "development");
 
 // Import models
@@ -42,10 +45,10 @@ app.use(cookieParser());
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.CLIENT_URL?.split(',') || ['http://localhost:5173'],
+  origin: process.env.CLIENT_URL?.split(",") || ["http://localhost:5173"],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Cookie']
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 };
 
 app.use(cors(corsOptions));
@@ -68,9 +71,11 @@ const server = createServer(app);
 // Socket.IO Configuration
 const io = new Server(server, {
   cors: {
-    origin: process.env.SOCKET_CORS_ORIGIN?.split(',') || ['http://localhost:5173'],
-    methods: ['GET', 'POST'],
-    credentials: true
+    origin: process.env.SOCKET_CORS_ORIGIN?.split(",") || [
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
