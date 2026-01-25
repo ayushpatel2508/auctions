@@ -623,9 +623,11 @@ You will be redirected to the auctions page...`.trim();
                                                 {bidHistory?.length > 0 ? (
                                                     <div className="space-y-3 max-h-80 overflow-y-auto">
                                                         {bidHistory.map((bid, index) => (
-                                                            <div key={index} className="flex items-center justify-between p-4 bg-gray-800/30 rounded-lg border border-gray-700/30 hover:border-gray-600/50 transition-colors">
+                                                            <div key={index} className="flex items-center justify-between p-4 rounded-lg border transition-colors card-elevated hover:shadow-md">
                                                                 <div className="flex items-center gap-3">
-                                                                    <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                                                                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{
+                                                                        background: 'var(--gradient-primary)'
+                                                                    }}>
                                                                         {bid.username.charAt(0).toUpperCase()}
                                                                     </div>
                                                                     <div>
@@ -720,7 +722,7 @@ You will be redirected to the auctions page...`.trim();
                                             )}
                                             {/* Quit Auction Button - Only for non-creators */}
                                             {hasJoined && !auctionEnded && auctionData.auction?.createdBy !== user && (
-                                                <div className="pt-6 border-t border-gray-700">
+                                                <div className="pt-6" style={{ borderTop: '1px solid var(--border-secondary)' }}>
                                                     <button
                                                         onClick={handleQuitAuction}
                                                         className="btn btn-ghost text-red-400 hover:bg-red-500/10 hover:border-red-500/30"
@@ -736,8 +738,11 @@ You will be redirected to the auctions page...`.trim();
 
                                             {/* Creator Info */}
                                             {hasJoined && !auctionEnded && auctionData.auction?.createdBy === user && (
-                                                <div className="pt-6 border-t border-gray-700">
-                                                    <div className="bg-gradient-to-r from-indigo-500/10 to-purple-600/10 border border-indigo-500/30 rounded-lg p-4 mb-4">
+                                                <div className="pt-6" style={{ borderTop: '1px solid var(--border-secondary)' }}>
+                                                    <div className="card-elevated rounded-lg p-4 mb-4" style={{
+                                                        background: 'linear-gradient(135deg, rgba(210, 105, 30, 0.1) 0%, rgba(139, 125, 107, 0.05) 100%)',
+                                                        borderColor: 'var(--accent-primary)'
+                                                    }}>
                                                         <div className="flex items-center gap-3">
                                                             <span className="text-2xl">👑</span>
                                                             <div>
@@ -809,12 +814,16 @@ You will be redirected to the auctions page...`.trim();
                                                     <div
                                                         key={index}
                                                         className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${username === user
-                                                            ? 'bg-gradient-to-r from-indigo-500/20 to-purple-600/20 border border-indigo-500/30'
-                                                            : 'bg-gray-800/30 border border-gray-700/30 hover:border-gray-600/50'
-                                                            }`}
+                                                            ? 'card-elevated border' : 'card-elevated border hover:shadow-md'
+                                                            }`} style={username === user ? {
+                                                                background: 'linear-gradient(135deg, rgba(210, 105, 30, 0.2) 0%, rgba(139, 125, 107, 0.1) 100%)',
+                                                                borderColor: 'var(--accent-primary)'
+                                                            } : {}}
                                                     >
                                                         <div className="relative">
-                                                            <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                                                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{
+                                                                background: 'var(--gradient-primary)'
+                                                            }}>
                                                                 {username.charAt(0).toUpperCase()}
                                                             </div>
                                                             <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900 animate-pulse"></div>
@@ -845,7 +854,7 @@ You will be redirected to the auctions page...`.trim();
                                             )}
                                         </div>
                                         {/* Live Status Indicator */}
-                                        <div className="mt-4 pt-4 border-t border-gray-700 flex items-center justify-between text-xs">
+                                        <div className="mt-4 pt-4 flex items-center justify-between text-xs" style={{ borderTop: '1px solid var(--border-secondary)' }}>
                                             <span className="flex items-center gap-2 text-green-400">
                                                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                                 Live updates enabled

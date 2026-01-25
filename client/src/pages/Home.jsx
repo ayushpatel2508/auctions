@@ -166,7 +166,9 @@ const Home = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{
+                        background: 'var(--gradient-primary)'
+                    }}>
                         {auction.createdBy.charAt(0).toUpperCase()}
                     </div>
                     <span className="text-sm text-gray-400">Created by</span>
@@ -186,8 +188,11 @@ const Home = () => {
                                 Delete Auction
                             </button>
                         ) : (
-                            <div className="bg-gradient-to-r from-purple-500/10 to-purple-600/10 border border-purple-500/30 rounded-lg p-3 text-center">
-                                <span className="text-purple-400 font-medium text-sm">
+                            <div className="rounded-lg p-3 text-center" style={{
+                                background: 'linear-gradient(135deg, rgba(128, 0, 128, 0.1) 0%, rgba(128, 0, 128, 0.05) 100%)',
+                                border: '1px solid rgba(128, 0, 128, 0.3)'
+                            }}>
+                                <span className="font-medium text-sm text-purple-600">
                                     {auction.winner ? `🏆 Won by: ${auction.winner}` : '❌ No winner'}
                                 </span>
                             </div>
@@ -203,8 +208,11 @@ const Home = () => {
                                 Quit Auction
                             </button>
                         ) : (
-                            <div className="bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-lg p-3 text-center">
-                                <span className={`font-medium text-sm ${auction.winner === user ? 'text-green-400' : 'text-blue-400'
+                            <div className="rounded-lg p-3 text-center" style={{
+                                background: 'linear-gradient(135deg, rgba(70, 130, 180, 0.1) 0%, rgba(70, 130, 180, 0.05) 100%)',
+                                border: '1px solid rgba(70, 130, 180, 0.3)'
+                            }}>
+                                <span className={`font-medium text-sm ${auction.winner === user ? 'text-green-600' : 'text-blue-600'
                                     }`}>
                                     {auction.winner === user ? '🏆 You Won!' :
                                         auction.winner ? `🏆 Won by: ${auction.winner}` :
