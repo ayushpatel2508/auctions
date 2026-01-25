@@ -13,6 +13,17 @@ const Home = () => {
     const [showAllJoined, setShowAllJoined] = useState(false);
     const [showAllCreated, setShowAllCreated] = useState(false);
 
+    // Override body background for warm theme
+    useEffect(() => {
+        const originalBackground = document.body.style.background;
+        document.body.style.background = 'var(--bg-primary)';
+
+        // Cleanup: restore original background when component unmounts
+        return () => {
+            document.body.style.background = originalBackground;
+        };
+    }, []);
+
     useEffect(() => {
         console.log("🔍 Home useEffect triggered");
         console.log("🔍 isAuthenticated:", isAuthenticated);
@@ -122,24 +133,18 @@ const Home = () => {
 
 
     const AuctionCard = ({ auction, cardType = "joined" }) => (
-        <div style={{
-            background: 'rgba(248, 246, 240, 0.8)', // Porcelain with transparency
-            borderColor: '#8b7d6b', // Mushroom border
-            boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)' // Warm spice shadow
-        }} className="p-6 hover:transform hover:scale-[1.02] transition-all duration-300 rounded-xl border-2 backdrop-blur-sm">
+        <div className="card p-6 hover:transform hover:scale-[1.02] transition-all duration-300 rounded-xl border-2 backdrop-blur-sm">
             <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-bold mb-2 line-clamp-1" style={{ color: '#3a3530' }}>{auction.title}</h3>
+                <h3 className="text-xl font-bold mb-2 line-clamp-1" style={{ color: 'var(--text-primary)' }}>{auction.title}</h3>
                 <div className={`px-3 py-1 rounded-full text-xs font-semibold ${auction.status === 'active'
-                    ? 'text-orange-700 border-2 border-orange-300'
-                    : 'text-gray-600 border-2 border-gray-300'
-                    }`} style={{
-                        background: auction.status === 'active' ? 'rgba(210, 105, 30, 0.1)' : 'rgba(139, 125, 107, 0.1)'
-                    }}>
+                    ? 'status-warning'
+                    : 'status-ended'
+                    } border-2`}>
                     {auction.status === 'active' ? '🟢 Active' : '🔴 Ended'}
                 </div>
             </div>
 
-            <p className="mb-6 line-clamp-2 text-sm leading-relaxed" style={{ color: '#8b7d6b' }}>
+            <p className="mb-6 line-clamp-2 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 {auction.description || 'No description provided'}
             </p>
 
@@ -225,37 +230,28 @@ const Home = () => {
     if (!isAuthenticated) {
         return (
             <div style={{
-                background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)',
+                background: 'var(--bg-primary)',
                 minHeight: '100vh',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                <div style={{
-                    background: 'rgba(248, 246, 240, 0.9)',
-                    borderColor: '#8b7d6b',
-                    boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)'
-                }} className="p-12 text-center max-w-lg mx-auto rounded-xl border-2 backdrop-blur-sm">
-                    <div style={{
-                        background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                <div className="card p-12 text-center max-w-lg mx-auto rounded-xl border-2 backdrop-blur-sm">
+                    <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8" style={{
+                        background: 'var(--gradient-primary)',
                         boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)'
-                    }} className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8">
+                    }}>
                         <span className="text-4xl">🏛️</span>
                     </div>
-                    <h1 className="text-4xl font-bold mb-6" style={{ color: '#3a3530' }}>
+                    <h1 className="text-4xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
                         Welcome to MyAuction
                     </h1>
-                    <p className="text-xl mb-10 leading-relaxed" style={{ color: '#8b7d6b' }}>
+                    <p className="text-xl mb-10 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                         Join the excitement of live bidding! Please log in to view your auctions and participate in real-time bidding.
                     </p>
                     <button
                         onClick={() => navigate('/login')}
-                        style={{
-                            background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
-                            boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
-                            color: '#f8f6f0'
-                        }}
-                        className="text-lg px-8 py-4 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto"
+                        className="btn btn-primary text-lg px-8 py-4 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto"
                     >
                         <span>🚀</span>
                         Login to Continue
@@ -268,18 +264,18 @@ const Home = () => {
     if (loading) {
         return (
             <div style={{
-                background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)',
+                background: 'var(--bg-primary)',
                 minHeight: '100vh',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
                 <div className="text-center">
-                    <div style={{
+                    <div className="w-16 h-16 border-4 rounded-full animate-spin mx-auto mb-6" style={{
                         borderColor: 'rgba(210, 105, 30, 0.3)',
-                        borderTopColor: '#d2691e'
-                    }} className="w-16 h-16 border-4 rounded-full animate-spin mx-auto mb-6"></div>
-                    <p className="text-lg" style={{ color: '#8b7d6b' }}>Loading your auctions...</p>
+                        borderTopColor: 'var(--accent-primary)'
+                    }}></div>
+                    <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Loading your auctions...</p>
                 </div>
             </div>
         );
@@ -287,25 +283,23 @@ const Home = () => {
 
     return (
         <div style={{
-            background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)', // Warm porcelain gradient
+            background: 'var(--bg-primary)',
             minHeight: '100vh',
-            color: '#3a3530' // Warm charcoal text
+            color: 'var(--text-primary)',
+            width: '100%'
         }}>
-            <div className="container mx-auto px-6 py-12">
+            <div className="container mx-auto px-6 py-12" style={{
+                background: 'transparent'
+            }}>
                 {/* Welcome Section */}
                 <div className="text-center mb-16">
                     <div className="flex items-center justify-center gap-4 mb-6">
 
                         <div className="text-left">
-                            <h1 className="text-4xl font-bold" style={{ color: '#3a3530' }}>
-                                Welcome back, <span style={{
-                                    background: 'linear-gradient(135deg, #d2691e 0%, #8b7d6b 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text'
-                                }}>{user}</span>!
+                            <h1 className="text-4xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                                Welcome back, <span className="text-gradient">{user}</span>!
                             </h1>
-                            <p className="text-xl mt-2" style={{ color: '#8b7d6b' }}>
+                            <p className="text-xl mt-2" style={{ color: 'var(--text-secondary)' }}>
                                 Manage your auctions and continue bidding
                             </p>
                         </div>
@@ -316,19 +310,14 @@ const Home = () => {
                 <div className="mb-16">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
-                            <h2 className="text-3xl font-bold mb-2" style={{ color: '#3a3530' }}>
+                            <h2 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
                                 Joined Auctions ({joinedAuctions.length})
                             </h2>
-                            <p style={{ color: '#8b7d6b' }}>Active auctions + past month results</p>
+                            <p style={{ color: 'var(--text-secondary)' }}>Active auctions + past month results</p>
                         </div>
                         <button
                             onClick={() => navigate('/auctions')}
-                            style={{
-                                background: 'rgba(139, 125, 107, 0.2)', // Mushroom with transparency
-                                borderColor: '#d2691e', // Spice border
-                                color: '#3a3530' // Warm charcoal text
-                            }}
-                            className="px-6 py-3 rounded-xl border-2 transition-all duration-300 font-medium hover:bg-orange-100 flex items-center gap-2"
+                            className="btn btn-secondary px-6 py-3 rounded-xl border-2 transition-all duration-300 font-medium hover:bg-orange-100 flex items-center gap-2"
                         >
                             <span>🔍</span>
                             Browse All Auctions
@@ -356,27 +345,18 @@ const Home = () => {
                             )}
                         </>
                     ) : (
-                        <div style={{
-                            background: 'rgba(248, 246, 240, 0.9)',
-                            borderColor: '#8b7d6b',
-                            boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)'
-                        }} className="p-12 text-center rounded-xl border-2 backdrop-blur-sm">
-                            <div style={{
-                                background: 'rgba(139, 125, 107, 0.2)',
-                                borderColor: '#8b7d6b'
-                            }} className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border">
+                        <div className="card p-12 text-center rounded-xl border-2 backdrop-blur-sm">
+                            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border" style={{
+                                background: 'var(--surface-hover)',
+                                borderColor: 'var(--border-secondary)'
+                            }}>
                                 <span className="text-3xl">🎯</span>
                             </div>
-                            <h3 className="text-xl font-semibold mb-4" style={{ color: '#3a3530' }}>No Joined Auctions</h3>
-                            <p className="mb-8" style={{ color: '#8b7d6b' }}>You haven't joined any auctions yet. Start bidding to see them here!</p>
+                            <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>No Joined Auctions</h3>
+                            <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>You haven't joined any auctions yet. Start bidding to see them here!</p>
                             <button
                                 onClick={() => navigate('/auctions')}
-                                style={{
-                                    background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
-                                    boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
-                                    color: '#f8f6f0'
-                                }}
-                                className="px-6 py-3 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto"
+                                className="btn btn-primary px-6 py-3 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto"
                             >
                                 <span>🔍</span>
                                 Browse Auctions
@@ -423,25 +403,17 @@ const Home = () => {
                             )}
                         </>
                     ) : (
-                        <div style={{
-                            background: 'rgba(248, 246, 240, 0.9)',
-                            borderColor: '#8b7d6b',
-                            boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)'
-                        }} className="p-12 text-center rounded-xl border-2 backdrop-blur-sm">
-                            <div style={{
-                                background: 'rgba(139, 125, 107, 0.2)',
-                                borderColor: '#8b7d6b'
-                            }} className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border">
+                        <div className="card p-12 text-center rounded-xl border-2 backdrop-blur-sm">
+                            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border" style={{
+                                background: 'var(--surface-hover)',
+                                borderColor: 'var(--border-secondary)'
+                            }}>
                                 <span className="text-3xl">🏛️</span>
                             </div>
-                            <h3 className="text-xl font-semibold mb-4" style={{ color: '#3a3530' }}>No Created Auctions</h3>
-                            <p className="mb-8" style={{ color: '#8b7d6b' }}>You haven't created any auctions yet. Start your first auction today!</p>
+                            <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>No Created Auctions</h3>
+                            <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>You haven't created any auctions yet. Start your first auction today!</p>
                             <CreateAuction onAuctionCreated={fetchUserAuctions}>
-                                <button style={{
-                                    background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
-                                    boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
-                                    color: '#f8f6f0'
-                                }} className="px-6 py-3 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto">
+                                <button className="btn btn-primary px-6 py-3 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto">
                                     <span>✨</span>
                                     Create Your First Auction
                                 </button>

@@ -40,30 +40,25 @@ const Navbar = () => {
     };
 
     return (
-        <nav style={{
-            background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 50%, #e8e3d8 100%)', // Porcelain gradient
-            borderBottom: '2px solid #d2691e', // Spice border
-            boxShadow: '0 2px 12px rgba(210, 105, 30, 0.15)', // Warm spice shadow
-            color: '#3a3530' // Warm charcoal text
-        }} className="shadow-lg backdrop-blur-sm">
+        <nav className="shadow-lg backdrop-blur-sm border-b-2" style={{
+            background: 'var(--bg-primary)',
+            borderBottomColor: 'var(--accent-primary)',
+            boxShadow: '0 2px 12px rgba(210, 105, 30, 0.15)',
+            color: 'var(--text-primary)'
+        }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
 
                     {/* Logo/Brand */}
                     <div className="flex items-center space-x-4">
                         <Link to="/" className="flex items-center space-x-3 group">
-                            <div style={{
-                                background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)', // Spice gradient
+                            <div className="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300" style={{
+                                background: 'var(--gradient-primary)',
                                 boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)'
-                            }} className="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300">
+                            }}>
                                 <span className="text-2xl">🏛️</span>
                             </div>
-                            <span style={{
-                                background: 'linear-gradient(135deg, #d2691e 0%, #8b7d6b 100%)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text'
-                            }} className="text-2xl font-bold">AuctionHub</span>
+                            <span className="text-2xl font-bold text-gradient">AuctionHub</span>
                         </Link>
                     </div>
 
@@ -75,16 +70,12 @@ const Navbar = () => {
                                 placeholder="Search auctions..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{
-                                    background: 'rgba(248, 246, 240, 0.9)', // Porcelain with transparency
-                                    borderColor: '#8b7d6b', // Mushroom border
-                                    color: '#3a3530' // Warm charcoal text
-                                }}
-                                className="w-full px-5 py-3 rounded-xl border-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 backdrop-blur-sm transition-all duration-300"
+                                className="input w-full px-5 py-3 rounded-xl border-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 backdrop-blur-sm transition-all duration-300"
                             />
                             <button
                                 type="submit"
-                                className="absolute right-3 top-3 text-orange-600 hover:text-orange-500 transition-colors text-lg"
+                                className="absolute right-3 top-3 transition-colors text-lg"
+                                style={{ color: 'var(--accent-primary)' }}
                             >
                                 🔍
                             </button>
@@ -98,14 +89,16 @@ const Navbar = () => {
                         <div className="hidden md:flex space-x-6">
                             <Link
                                 to="/"
-                                className="relative px-4 py-2 font-medium text-gray-700 transition-colors duration-300 hover:text-orange-600 group"
+                                className="relative px-4 py-2 font-medium transition-colors duration-300 hover:text-orange-600 group"
+                                style={{ color: 'var(--text-secondary)' }}
                             >
                                 Home
                                 <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                             </Link>
                             <Link
                                 to="/auctions"
-                                className="relative px-4 py-2 font-medium text-gray-700 transition-colors duration-300 hover:text-orange-600 group"
+                                className="relative px-4 py-2 font-medium transition-colors duration-300 hover:text-orange-600 group"
+                                style={{ color: 'var(--text-secondary)' }}
                             >
                                 Auctions
                                 <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
@@ -130,12 +123,7 @@ const Navbar = () => {
                                     {/* Logout Button */}
                                     <button
                                         onClick={handleLogout}
-                                        style={{
-                                            background: 'linear-gradient(135deg, #8b7d6b 0%, #6d6354 100%)', // Mushroom gradient
-                                            boxShadow: '0 3px 12px rgba(139, 125, 107, 0.3)',
-                                            color: '#f8f6f0' // Porcelain text
-                                        }}
-                                        className="hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 border border-gray-400"
+                                        className="btn btn-secondary hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 border"
                                     >
                                         Logout
                                     </button>
@@ -144,12 +132,7 @@ const Navbar = () => {
                                 /* Login Button */
                                 <Link
                                     to="/login"
-                                    style={{
-                                        background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)', // Spice gradient
-                                        boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
-                                        color: '#f8f6f0' // Porcelain text
-                                    }}
-                                    className="hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105"
+                                    className="btn btn-primary hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105"
                                 >
                                     Login
                                 </Link>

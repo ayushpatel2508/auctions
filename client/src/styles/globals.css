@@ -2,79 +2,79 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Modern Dark Theme Design System */
+/* Warm Porcelain + Mushroom + Spice Theme Design System */
 :root {
-  /* Dark Theme Color Palette */
-  --bg-primary: #0a0a0b;
-  /* Deep black background */
-  --bg-secondary: #111113;
-  /* Card backgrounds */
-  --bg-tertiary: #1a1a1d;
+  /* Warm Theme Color Palette */
+  --bg-primary: #f8f6f0;
+  /* Porcelain background */
+  --bg-secondary: #f0ede5;
+  /* Light porcelain for cards */
+  --bg-tertiary: #e8e3d8;
   /* Elevated surfaces */
-  --bg-quaternary: #242428;
+  --bg-quaternary: #ddd6c7;
   /* Input backgrounds */
 
   /* Surface colors */
-  --surface-elevated: #1e1e22;
+  --surface-elevated: #f5f2ea;
   /* Modal, dropdown backgrounds */
-  --surface-hover: #2a2a2f;
+  --surface-hover: #ebe6d9;
   /* Hover states */
-  --surface-active: #323238;
+  --surface-active: #e0d9c8;
   /* Active states */
 
   /* Text colors */
-  --text-primary: #ffffff;
-  /* Primary text */
-  --text-secondary: #b4b4b8;
-  /* Secondary text */
-  --text-tertiary: #8a8a8f;
-  /* Muted text */
-  --text-disabled: #5a5a5f;
+  --text-primary: #3a3530;
+  /* Warm charcoal - primary text */
+  --text-secondary: #8b7d6b;
+  /* Mushroom - secondary text */
+  --text-tertiary: #a69688;
+  /* Light mushroom - muted text */
+  --text-disabled: #c4b8a8;
   /* Disabled text */
 
-  /* Accent colors - Corporate Blue & Orange Theme */
-  --accent-primary: #1e40af;
-  /* Primary brand color (deep blue) */
-  --accent-primary-hover: #1d4ed8;
-  --accent-secondary: #ea580c;
-  /* Secondary accent (orange) */
-  --accent-tertiary: #0891b2;
-  /* Tertiary accent (teal) */
+  /* Accent colors - Spice Theme */
+  --accent-primary: #d2691e;
+  /* Spice - primary brand color */
+  --accent-primary-hover: #b8541a;
+  --accent-secondary: #8b7d6b;
+  /* Mushroom - secondary accent */
+  --accent-tertiary: #cd853f;
+  /* Peru - tertiary accent */
 
   /* Status colors */
-  --success: #10b981;
-  /* Success green */
-  --success-bg: #064e3b;
-  --warning: #f59e0b;
-  /* Warning amber */
-  --warning-bg: #451a03;
-  --error: #ef4444;
-  /* Error red */
-  --error-bg: #7f1d1d;
-  --info: #3b82f6;
-  /* Info blue */
-  --info-bg: #1e3a8a;
+  --success: #228b22;
+  /* Forest green for success */
+  --success-bg: #f0f8f0;
+  --warning: #d2691e;
+  /* Spice for warning */
+  --warning-bg: #fdf5e6;
+  --error: #cd5c5c;
+  /* Indian red for error */
+  --error-bg: #fdf2f2;
+  --info: #4682b4;
+  /* Steel blue for info */
+  --info-bg: #f0f8ff;
 
   /* Border colors */
-  --border-primary: #2a2a2f;
-  /* Primary borders */
-  --border-secondary: #3a3a3f;
-  /* Secondary borders */
-  --border-accent: #4f46e5;
-  /* Accent borders */
+  --border-primary: #8b7d6b;
+  /* Mushroom borders */
+  --border-secondary: #a69688;
+  /* Light mushroom borders */
+  --border-accent: #d2691e;
+  /* Spice accent borders */
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
-  --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  --gradient-error: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  --gradient-primary: linear-gradient(135deg, #d2691e 0%, #b8541a 100%);
+  --gradient-secondary: linear-gradient(135deg, #8b7d6b 0%, #6d6354 100%);
+  --gradient-success: linear-gradient(135deg, #228b22 0%, #006400 100%);
+  --gradient-warning: linear-gradient(135deg, #d2691e 0%, #b8541a 100%);
+  --gradient-error: linear-gradient(135deg, #cd5c5c 0%, #b22222 100%);
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px 0 rgba(210, 105, 30, 0.15);
+  --shadow-md: 0 4px 6px -1px rgba(210, 105, 30, 0.2), 0 2px 4px -1px rgba(139, 125, 107, 0.15);
+  --shadow-lg: 0 10px 15px -3px rgba(210, 105, 30, 0.25), 0 4px 6px -2px rgba(139, 125, 107, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(210, 105, 30, 0.3), 0 10px 10px -5px rgba(139, 125, 107, 0.25);
 
   /* Animation */
   --transition-fast: 0.15s ease-out;
@@ -118,7 +118,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary);
+  background: var(--accent-primary);
 }
 
 /* Component Classes */
@@ -174,8 +174,10 @@ body {
 }
 
 .btn-primary:hover:not(:disabled) {
+  background: var(--gradient-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
+  filter: brightness(1.1);
 }
 
 .btn-secondary {
@@ -231,7 +233,7 @@ body {
 .input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.2);
 }
 
 .input::placeholder {
@@ -389,7 +391,7 @@ body {
 /* Focus styles for accessibility */
 .focus-ring:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.3);
 }
 
 /* Loading states */
@@ -405,7 +407,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.2), transparent);
   animation: loading 1.5s infinite;
 }
 

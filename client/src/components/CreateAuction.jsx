@@ -113,21 +113,24 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 via-purple-900/50 to-indigo-900/50 border border-purple-500/20 backdrop-blur-xl">
+            <DialogContent className="card max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader className="text-center pb-2">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/25">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg" style={{
+                        background: 'var(--gradient-primary)',
+                        boxShadow: '0 4px 20px rgba(210, 105, 30, 0.4)'
+                    }}>
                         <span className="text-3xl">🏛️</span>
                     </div>
-                    <DialogTitle className="text-2xl font-bold text-white">Create New Auction</DialogTitle>
-                    <DialogDescription className="text-gray-300">
+                    <DialogTitle className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Create New Auction</DialogTitle>
+                    <DialogDescription style={{ color: 'var(--text-secondary)' }}>
                         Fill in the details to start your auction and reach bidders worldwide
                     </DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                            <span className="text-purple-400">📝</span>
+                        <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                            <span style={{ color: 'var(--accent-primary)' }}>📝</span>
                             Auction Title *
                         </label>
                         <Input
@@ -136,14 +139,14 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                             value={formData.title}
                             onChange={handleChange}
                             placeholder="Enter auction title"
-                            className="bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12"
+                            className="input rounded-xl h-12"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                            <span className="text-purple-400">📄</span>
+                        <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                            <span style={{ color: 'var(--accent-primary)' }}>📄</span>
                             Description
                         </label>
                         <textarea
@@ -151,15 +154,15 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                             value={formData.description}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent resize-none"
+                            className="input w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 resize-none"
                             placeholder="Describe your auction item in detail..."
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                                <span className="text-purple-400">💰</span>
+                            <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                                <span style={{ color: 'var(--accent-primary)' }}>💰</span>
                                 Starting Price ($) *
                             </label>
                             <Input
@@ -170,55 +173,55 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                                 min="0"
                                 step="0.01"
                                 placeholder="0.00"
-                                className="bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12"
+                                className="input rounded-xl h-12"
                                 required
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                                <span className="text-purple-400">⏰</span>
+                            <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                                <span style={{ color: 'var(--accent-primary)' }}>⏰</span>
                                 Duration *
                             </label>
                             <select
                                 name="duration"
                                 value={formData.duration}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white/10 border border-white/20 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent h-12"
+                                className="input w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 h-12"
                                 required
                             >
-                                <option value="15" className="bg-gray-800">15 minutes</option>
-                                <option value="30" className="bg-gray-800">30 minutes</option>
-                                <option value="60" className="bg-gray-800">1 hour</option>
-                                <option value="120" className="bg-gray-800">2 hours</option>
-                                <option value="360" className="bg-gray-800">6 hours</option>
-                                <option value="720" className="bg-gray-800">12 hours</option>
-                                <option value="1440" className="bg-gray-800">24 hours</option>
+                                <option value="15" style={{ background: 'var(--bg-secondary)' }}>15 minutes</option>
+                                <option value="30" style={{ background: 'var(--bg-secondary)' }}>30 minutes</option>
+                                <option value="60" style={{ background: 'var(--bg-secondary)' }}>1 hour</option>
+                                <option value="120" style={{ background: 'var(--bg-secondary)' }}>2 hours</option>
+                                <option value="360" style={{ background: 'var(--bg-secondary)' }}>6 hours</option>
+                                <option value="720" style={{ background: 'var(--bg-secondary)' }}>12 hours</option>
+                                <option value="1440" style={{ background: 'var(--bg-secondary)' }}>24 hours</option>
                             </select>
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20 p-6 rounded-2xl">
-                        <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                            <span className="text-purple-400">👁️</span>
+                    <div className="card-elevated p-6 rounded-2xl">
+                        <h3 className="font-semibold mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                            <span style={{ color: 'var(--accent-primary)' }}>👁️</span>
                             Auction Preview
                         </h3>
-                        <div className="text-sm text-gray-300 space-y-3">
+                        <div className="text-sm space-y-3" style={{ color: 'var(--text-secondary)' }}>
                             <div className="flex items-center justify-between">
-                                <span className="text-gray-400">Title:</span>
-                                <span className="text-white font-medium">{formData.title || 'Not set'}</span>
+                                <span>Title:</span>
+                                <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{formData.title || 'Not set'}</span>
                             </div>
                             <div className="flex items-center justify-between">
-                                <span className="text-gray-400">Starting Price:</span>
-                                <span className="text-green-400 font-medium">${formData.startingPrice || '0.00'}</span>
+                                <span>Starting Price:</span>
+                                <span className="font-medium text-green-600">${formData.startingPrice || '0.00'}</span>
                             </div>
                             <div className="flex items-center justify-between">
-                                <span className="text-gray-400">Duration:</span>
-                                <span className="text-purple-400 font-medium">{formData.duration} minutes</span>
+                                <span>Duration:</span>
+                                <span className="font-medium" style={{ color: 'var(--accent-primary)' }}>{formData.duration} minutes</span>
                             </div>
                             <div className="flex items-center justify-between">
-                                <span className="text-gray-400">Created by:</span>
-                                <span className="text-indigo-400 font-medium">{user}</span>
+                                <span>Created by:</span>
+                                <span className="font-medium" style={{ color: 'var(--accent-primary)' }}>{user}</span>
                             </div>
                         </div>
                     </div>
@@ -228,14 +231,14 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                             type="button"
                             variant="outline"
                             onClick={() => setDialogOpen(false)}
-                            className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-xl px-6"
+                            className="btn btn-secondary rounded-xl px-6"
                         >
                             Cancel
                         </Button>
                         <Button
                             type="submit"
                             disabled={loading || !formData.title || !formData.startingPrice}
-                            className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold rounded-xl px-8 shadow-lg shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                            className="btn btn-primary font-semibold rounded-xl px-8 shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
                             {loading ? (
                                 <div className="flex items-center gap-2">
@@ -258,12 +261,11 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                 {toasts.map((toast) => (
                     <div
                         key={toast.id}
-                        className={`
-                        max-w-sm p-4 rounded-2xl shadow-2xl transform transition-all duration-300 ease-in-out backdrop-blur-xl border
-                            ${toast.type === 'success' ? 'bg-green-500/90 text-white border-green-400/50' :
-                                toast.type === 'error' ? 'bg-red-500/90 text-white border-red-400/50' :
-                                    toast.type === 'warning' ? 'bg-yellow-500/90 text-white border-yellow-400/50' :
-                                        'bg-blue-500/90 text-white border-blue-400/50'
+                        className={`toast animate-fade-in max-w-sm p-4 rounded-2xl shadow-2xl transform transition-all duration-300 ease-in-out backdrop-blur-xl border
+                            ${toast.type === 'success' ? 'toast-success' :
+                                toast.type === 'error' ? 'toast-error' :
+                                    toast.type === 'warning' ? 'toast-warning' :
+                                        'toast-info'
                             }
                             `}
                     >
@@ -276,17 +278,17 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                                     {toast.type === 'info' && <span className="text-lg">ℹ️</span>}
                                 </div>
                                 <div className="flex-1">
-                                    <div className="text-sm font-medium whitespace-pre-line">
+                                    <div className="text-sm font-medium whitespace-pre-line" style={{ color: 'var(--text-primary)' }}>
                                         {toast.message}
                                     </div>
-                                    <div className="text-xs opacity-75 mt-1">
+                                    <div className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
                                         {toast.timestamp}
                                     </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-                                className="ml-3 text-white hover:text-gray-200 transition-colors text-lg"
+                                className="ml-3 transition-colors text-lg" style={{ color: 'var(--text-secondary)' }}
                             >
                                 ✕
                             </button>

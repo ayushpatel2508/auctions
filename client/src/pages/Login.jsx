@@ -92,34 +92,55 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{
+            background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)'
+        }}>
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+                <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl animate-pulse" style={{
+                    background: 'rgba(210, 105, 30, 0.15)'
+                }}></div>
+                <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full blur-3xl animate-pulse delay-1000" style={{
+                    background: 'rgba(139, 125, 107, 0.15)'
+                }}></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl animate-pulse delay-500" style={{
+                    background: 'rgba(205, 133, 63, 0.1)'
+                }}></div>
             </div>
 
             <div className="max-w-md w-full space-y-8 relative z-10">
 
                 {/* Header */}
                 <div className="text-center">
-                    <div className="mx-auto h-20 w-20 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-purple-500/25 animate-bounce">
+                    <div className="mx-auto h-20 w-20 rounded-2xl flex items-center justify-center mb-6 shadow-2xl animate-bounce" style={{
+                        background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                        boxShadow: '0 8px 32px rgba(210, 105, 30, 0.4)'
+                    }}>
                         <span className="text-3xl">🏛️</span>
                     </div>
-                    <h2 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    <h2 className="text-4xl font-bold mb-2" style={{
+                        background: 'linear-gradient(135deg, #d2691e 0%, #8b7d6b 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text'
+                    }}>
                         Welcome Back!
                     </h2>
-                    <p className="text-gray-300 text-lg">
+                    <p className="text-lg" style={{ color: '#8b7d6b' }}>
                         Sign in to your account to continue bidding
                     </p>
                 </div>
 
                 {/* Login Form Card */}
-                <Card className="shadow-2xl border-0 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl">
+                <Card className="shadow-2xl border-0 rounded-2xl" style={{
+                    background: 'rgba(248, 246, 240, 0.9)',
+                    backdropFilter: 'blur(20px)',
+                    border: '2px solid rgba(139, 125, 107, 0.3)',
+                    boxShadow: '0 8px 32px rgba(210, 105, 30, 0.2)'
+                }}>
                     <CardHeader className="text-center pb-2">
-                        <CardTitle className="text-2xl text-white font-bold">Sign In</CardTitle>
-                        <CardDescription className="text-gray-300">
+                        <CardTitle className="text-2xl font-bold" style={{ color: '#3a3530' }}>Sign In</CardTitle>
+                        <CardDescription style={{ color: '#8b7d6b' }}>
                             Enter your credentials to access your account
                         </CardDescription>
                     </CardHeader>
@@ -129,10 +150,10 @@ const Login = () => {
 
                             {/* Email Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="email" className="text-white font-medium">Email Address</Label>
+                                <Label htmlFor="email" className="font-medium" style={{ color: '#3a3530' }}>Email Address</Label>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span className="text-purple-400 text-lg">📧</span>
+                                        <span className="text-lg" style={{ color: '#d2691e' }}>📧</span>
                                     </div>
                                     <Input
                                         id="email"
@@ -140,13 +161,18 @@ const Login = () => {
                                         type="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className={`pl-12 bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
+                                        className={`pl-12 rounded-xl h-12 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
                                             }`}
+                                        style={{
+                                            background: 'rgba(248, 246, 240, 0.8)',
+                                            border: '2px solid #8b7d6b',
+                                            color: '#3a3530'
+                                        }}
                                         placeholder="Enter your email"
                                     />
                                 </div>
                                 {errors.email && (
-                                    <p className="text-red-400 text-sm mt-1 flex items-center gap-1 animate-pulse">
+                                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-pulse">
                                         <span>⚠️</span>
                                         {errors.email}
                                     </p>
@@ -155,10 +181,10 @@ const Login = () => {
 
                             {/* Password Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="password" className="text-white font-medium">Password</Label>
+                                <Label htmlFor="password" className="font-medium" style={{ color: '#3a3530' }}>Password</Label>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span className="text-purple-400 text-lg">🔒</span>
+                                        <span className="text-lg" style={{ color: '#d2691e' }}>🔒</span>
                                     </div>
                                     <Input
                                         id="password"
@@ -166,20 +192,26 @@ const Login = () => {
                                         type={showPassword ? 'text' : 'password'}
                                         value={formData.password}
                                         onChange={handleChange}
-                                        className={`pl-12 pr-12 bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
+                                        className={`pl-12 pr-12 rounded-xl h-12 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
                                             }`}
+                                        style={{
+                                            background: 'rgba(248, 246, 240, 0.8)',
+                                            border: '2px solid #8b7d6b',
+                                            color: '#3a3530'
+                                        }}
                                         placeholder="Enter your password"
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center transition-colors"
+                                        style={{ color: '#d2691e' }}
                                     >
                                         <span className="text-lg">{showPassword ? '🙈' : '👁️'}</span>
                                     </button>
                                 </div>
                                 {errors.password && (
-                                    <p className="text-red-400 text-sm mt-1 flex items-center gap-1 animate-pulse">
+                                    <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-pulse">
                                         <span>⚠️</span>
                                         {errors.password}
                                     </p>
@@ -190,7 +222,12 @@ const Login = () => {
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold py-3 rounded-xl shadow-lg shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                className="w-full font-semibold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                style={{
+                                    background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                                    boxShadow: '0 4px 20px rgba(210, 105, 30, 0.4)',
+                                    color: '#f8f6f0'
+                                }}
                                 size="lg"
                             >
                                 {isLoading ? (
@@ -208,11 +245,12 @@ const Login = () => {
 
                 {/* Sign Up Link */}
                 <div className="text-center">
-                    <p className="text-gray-300">
+                    <p style={{ color: '#8b7d6b' }}>
                         Don't have an account?{' '}
                         <Link
                             to="/register"
-                            className="font-semibold text-purple-400 hover:text-purple-300 transition-colors"
+                            className="font-semibold transition-colors"
+                            style={{ color: '#d2691e' }}
                         >
                             Create one now
                         </Link>
@@ -221,17 +259,17 @@ const Login = () => {
 
                 {/* Trust Indicators */}
                 <div className="text-center">
-                    <div className="flex justify-center items-center space-x-6 text-sm text-gray-400">
+                    <div className="flex justify-center items-center space-x-6 text-sm" style={{ color: '#8b7d6b' }}>
                         <div className="flex items-center">
-                            <span className="text-green-400 mr-2 text-lg">🔒</span>
+                            <span className="mr-2 text-lg" style={{ color: '#228b22' }}>🔒</span>
                             SSL Secured
                         </div>
                         <div className="flex items-center">
-                            <span className="text-blue-400 mr-2 text-lg">🛡️</span>
+                            <span className="mr-2 text-lg" style={{ color: '#4682b4' }}>🛡️</span>
                             Privacy Protected
                         </div>
                         <div className="flex items-center">
-                            <span className="text-purple-400 mr-2 text-lg">⚡</span>
+                            <span className="mr-2 text-lg" style={{ color: '#d2691e' }}>⚡</span>
                             Fast & Reliable
                         </div>
                     </div>

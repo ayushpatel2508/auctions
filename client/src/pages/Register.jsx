@@ -133,34 +133,55 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{
+            background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)'
+        }}>
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+                <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl animate-pulse" style={{
+                    background: 'rgba(210, 105, 30, 0.15)'
+                }}></div>
+                <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full blur-3xl animate-pulse delay-1000" style={{
+                    background: 'rgba(139, 125, 107, 0.15)'
+                }}></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl animate-pulse delay-500" style={{
+                    background: 'rgba(205, 133, 63, 0.1)'
+                }}></div>
             </div>
 
             <div className="max-w-md w-full space-y-8 relative z-10">
                 {/* Header */}
                 <div className="text-center">
-                    <div className="mx-auto h-20 w-20 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-purple-500/25 animate-bounce">
+                    <div className="mx-auto h-20 w-20 rounded-2xl flex items-center justify-center mb-6 shadow-2xl animate-bounce" style={{
+                        background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                        boxShadow: '0 8px 32px rgba(210, 105, 30, 0.4)'
+                    }}>
                         <span className="text-3xl">🏛️</span>
                     </div>
-                    <h2 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    <h2 className="text-4xl font-bold mb-2" style={{
+                        background: 'linear-gradient(135deg, #d2691e 0%, #8b7d6b 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text'
+                    }}>
                         Create Account
                     </h2>
-                    <p className="text-gray-300 text-lg">
+                    <p className="text-lg" style={{ color: '#8b7d6b' }}>
                         Join AuctionHub to start bidding
                     </p>
                 </div>
 
                 {/* Register Form Card */}
-                <div className="shadow-2xl border-0 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8">
+                <div className="shadow-2xl border-0 rounded-2xl p-8" style={{
+                    background: 'rgba(248, 246, 240, 0.9)',
+                    backdropFilter: 'blur(20px)',
+                    border: '2px solid rgba(139, 125, 107, 0.3)',
+                    boxShadow: '0 8px 32px rgba(210, 105, 30, 0.2)'
+                }}>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                                <span className="text-purple-400 text-lg">👤</span>
+                            <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: '#3a3530' }}>
+                                <span className="text-lg" style={{ color: '#d2691e' }}>👤</span>
                                 Username
                             </label>
                             <input
@@ -168,12 +189,17 @@ const Register = () => {
                                 name="username"
                                 value={formData.username}
                                 onChange={handleChange}
-                                className={`w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
+                                className={`w-full px-4 py-3 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
                                     }`}
+                                style={{
+                                    background: 'rgba(248, 246, 240, 0.8)',
+                                    border: '2px solid #8b7d6b',
+                                    color: '#3a3530'
+                                }}
                                 placeholder="Choose a username"
                             />
                             {errors.username && (
-                                <p className="text-red-400 text-sm mt-1 flex items-center gap-1 animate-pulse">
+                                <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-pulse">
                                     <span>⚠️</span>
                                     {errors.username}
                                 </p>
@@ -181,8 +207,8 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                                <span className="text-purple-400 text-lg">📧</span>
+                            <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: '#3a3530' }}>
+                                <span className="text-lg" style={{ color: '#d2691e' }}>📧</span>
                                 Email Address
                             </label>
                             <input
@@ -190,12 +216,17 @@ const Register = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className={`w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
+                                className={`w-full px-4 py-3 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
                                     }`}
+                                style={{
+                                    background: 'rgba(248, 246, 240, 0.8)',
+                                    border: '2px solid #8b7d6b',
+                                    color: '#3a3530'
+                                }}
                                 placeholder="Enter your email"
                             />
                             {errors.email && (
-                                <p className="text-red-400 text-sm mt-1 flex items-center gap-1 animate-pulse">
+                                <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-pulse">
                                     <span>⚠️</span>
                                     {errors.email}
                                 </p>
@@ -203,8 +234,8 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                                <span className="text-purple-400 text-lg">🔒</span>
+                            <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: '#3a3530' }}>
+                                <span className="text-lg" style={{ color: '#d2691e' }}>🔒</span>
                                 Password
                             </label>
                             <input
@@ -212,12 +243,17 @@ const Register = () => {
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className={`w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
+                                className={`w-full px-4 py-3 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
                                     }`}
+                                style={{
+                                    background: 'rgba(248, 246, 240, 0.8)',
+                                    border: '2px solid #8b7d6b',
+                                    color: '#3a3530'
+                                }}
                                 placeholder="Create a password"
                             />
                             {errors.password && (
-                                <p className="text-red-400 text-sm mt-1 flex items-center gap-1 animate-pulse">
+                                <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-pulse">
                                     <span>⚠️</span>
                                     {errors.password}
                                 </p>
@@ -225,8 +261,8 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-white mb-3 flex items-center gap-2">
-                                <span className="text-purple-400 text-lg">🔐</span>
+                            <label className="block text-sm font-medium mb-3 flex items-center gap-2" style={{ color: '#3a3530' }}>
+                                <span className="text-lg" style={{ color: '#d2691e' }}>🔐</span>
                                 Confirm Password
                             </label>
                             <input
@@ -234,12 +270,17 @@ const Register = () => {
                                 name="confirmPassword"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
-                                className={`w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-purple-400/50 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
+                                className={`w-full px-4 py-3 rounded-xl h-12 focus:outline-none focus:ring-2 ${errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50' : ''
                                     }`}
+                                style={{
+                                    background: 'rgba(248, 246, 240, 0.8)',
+                                    border: '2px solid #8b7d6b',
+                                    color: '#3a3530'
+                                }}
                                 placeholder="Confirm your password"
                             />
                             {errors.confirmPassword && (
-                                <p className="text-red-400 text-sm mt-1 flex items-center gap-1 animate-pulse">
+                                <p className="text-red-500 text-sm mt-1 flex items-center gap-1 animate-pulse">
                                     <span>⚠️</span>
                                     {errors.confirmPassword}
                                 </p>
@@ -249,7 +290,12 @@ const Register = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold py-3 rounded-xl shadow-lg shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                            className="w-full font-semibold py-3 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                            style={{
+                                background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                                boxShadow: '0 4px 20px rgba(210, 105, 30, 0.4)',
+                                color: '#f8f6f0'
+                            }}
                         >
                             {isLoading ? (
                                 <div className="flex items-center justify-center">
@@ -263,9 +309,9 @@ const Register = () => {
                     </form>
 
                     <div className="mt-6 text-center">
-                        <p className="text-gray-300">
+                        <p style={{ color: '#8b7d6b' }}>
                             Already have an account?{' '}
-                            <Link to="/login" className="font-semibold text-purple-400 hover:text-purple-300 transition-colors">
+                            <Link to="/login" className="font-semibold transition-colors" style={{ color: '#d2691e' }}>
                                 Sign in here
                             </Link>
                         </p>
@@ -274,17 +320,17 @@ const Register = () => {
 
                 {/* Trust Indicators */}
                 <div className="text-center">
-                    <div className="flex justify-center items-center space-x-6 text-sm text-gray-400">
+                    <div className="flex justify-center items-center space-x-6 text-sm" style={{ color: '#8b7d6b' }}>
                         <div className="flex items-center">
-                            <span className="text-green-400 mr-2 text-lg">🔒</span>
+                            <span className="mr-2 text-lg" style={{ color: '#228b22' }}>🔒</span>
                             SSL Secured
                         </div>
                         <div className="flex items-center">
-                            <span className="text-blue-400 mr-2 text-lg">🛡️</span>
+                            <span className="mr-2 text-lg" style={{ color: '#4682b4' }}>🛡️</span>
                             Privacy Protected
                         </div>
                         <div className="flex items-center">
-                            <span className="text-purple-400 mr-2 text-lg">⚡</span>
+                            <span className="mr-2 text-lg" style={{ color: '#d2691e' }}>⚡</span>
                             Fast & Reliable
                         </div>
                     </div>

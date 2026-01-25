@@ -80,10 +80,15 @@ const Auctions = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[400px] flex items-center justify-center">
+      <div className="min-h-[400px] flex items-center justify-center" style={{
+        background: 'var(--bg-primary)'
+      }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading auctions...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{
+            borderColor: 'rgba(210, 105, 30, 0.3)',
+            borderBottomColor: 'var(--accent-primary)'
+          }}></div>
+          <p style={{ color: 'var(--text-secondary)' }}>Loading auctions...</p>
         </div>
       </div>
     );
@@ -91,13 +96,15 @@ const Auctions = () => {
 
   if (error) {
     return (
-      <div className="min-h-[400px] flex items-center justify-center">
-        <Alert className="max-w-md">
+      <div className="min-h-[400px] flex items-center justify-center" style={{
+        background: 'var(--bg-primary)'
+      }}>
+        <Alert className="card max-w-md">
           <AlertDescription className="text-center">
             <div className="text-red-500 text-6xl mb-4">⚠️</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Error Loading Auctions</h2>
-            <p className="text-gray-600 mb-4">{error}</p>
-            <Button onClick={fetchAuctions} variant="outline">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Error Loading Auctions</h2>
+            <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{error}</p>
+            <Button onClick={fetchAuctions} variant="outline" className="btn btn-secondary">
               Try Again
             </Button>
           </AlertDescription>
@@ -107,12 +114,17 @@ const Auctions = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" style={{
+      background: 'var(--bg-primary)',
+      minHeight: '100vh',
+      padding: '2rem',
+      color: 'var(--text-primary)'
+    }}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white">Live Auctions</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>Live Auctions</h1>
+          <p className="mt-1" style={{ color: 'var(--text-secondary)' }}>
             {auctions.length} active auction{auctions.length !== 1 ? 's' : ''} available
           </p>
         </div>
@@ -120,7 +132,7 @@ const Auctions = () => {
         <Button
           onClick={fetchAuctions}
           variant="outline"
-          className="flex items-center space-x-2 rounded-lg"
+          className="btn btn-secondary flex items-center space-x-2 rounded-lg"
         >
           <span>🔄</span>
           <span>Refresh</span>
@@ -134,10 +146,10 @@ const Auctions = () => {
           placeholder="Search auctions..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10 rounded-lg"
+          className="input pl-10 rounded-lg"
         />
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <span className="text-gray-400">🔍</span>
+          <span style={{ color: 'var(--accent-primary)' }}>🔍</span>
         </div>
       </div>
 
@@ -145,10 +157,10 @@ const Auctions = () => {
       {filteredAuctions.length === 0 ? (
         <div className="text-center py-12">
           {/* <div className="text-gray-400 text-6xl mb-4">🏠</div> */}
-          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+          <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-secondary)' }}>
             {searchTerm ? 'No auctions found' : 'No active auctions'}
           </h3>
-          <p className="text-gray-600">
+          <p style={{ color: 'var(--text-secondary)' }}>
             {searchTerm
               ? 'Try adjusting your search terms'
               : 'Check back later for new auctions'
@@ -190,21 +202,21 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
   const hasEnded = timeRemaining <= 0;
 
   return (
-    <Card className="hover:shadow-xl transition-all duration-300 rounded-lg">
+    <Card className="card hover:shadow-xl transition-all duration-300 rounded-lg">
       <CardHeader>
         <div className="flex justify-between items-start">
-          <CardTitle className="text-xl line-clamp-2">{auction.title}</CardTitle>
+          <CardTitle className="text-xl line-clamp-2" style={{ color: 'var(--text-primary)' }}>{auction.title}</CardTitle>
           <div className={`px-2 py-1 rounded-full text-xs font-medium ${hasEnded
-            ? 'bg-red-100 text-red-800'
+            ? 'status-ended'
             : isEnding
-              ? 'bg-yellow-100 text-yellow-800'
-              : 'bg-green-100 text-green-800'
+              ? 'status-warning'
+              : 'status-active'
             }`}>
             {hasEnded ? 'Ended' : 'Live'}
           </div>
         </div>
         {auction.description && (
-          <CardDescription className="line-clamp-2">
+          <CardDescription className="line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
             {auction.description}
           </CardDescription>
         )}
@@ -213,14 +225,14 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
       <CardContent>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <p className="text-sm text-muted-foreground">Starting Price</p>
-            <p className="text-lg font-semibold">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Starting Price</p>
+            <p className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
               ${auction.startingPrice.toLocaleString()}
             </p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Current Bid</p>
-            <p className="text-lg font-semibold text-blue-600">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Current Bid</p>
+            <p className="text-lg font-semibold" style={{ color: 'var(--accent-primary)' }}>
               ${auction.currentBid.toLocaleString()}
             </p>
           </div>
@@ -229,7 +241,7 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
         {/* Time Remaining */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Time Remaining:</span>
+            <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Time Remaining:</span>
             <span className={`font-mono font-semibold ${hasEnded
               ? 'text-red-600'
               : isEnding
@@ -241,7 +253,7 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full rounded-full h-2" style={{ background: 'var(--surface-hover)' }}>
             <div
               className={`h-2 rounded-full transition-all duration-1000 ${hasEnded
                 ? 'bg-red-500'
@@ -256,8 +268,8 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-4 text-sm text-muted-foreground">
-          <span>By: <span className="font-medium">{auction.createdBy}</span></span>
+        <div className="flex justify-between items-center mt-4 text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <span>By: <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{auction.createdBy}</span></span>
           <span>👥 {auction.onlineUsers?.length || 0}</span>
         </div>
       </CardContent>
@@ -266,56 +278,56 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
         {/* Details Dialog */}
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" className="flex-1 rounded-lg">
+            <Button variant="outline" className="btn btn-secondary flex-1 rounded-lg">
               View Details
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md rounded-lg">
+          <DialogContent className="card max-w-md rounded-lg">
             <DialogHeader>
-              <DialogTitle>{auction.title}</DialogTitle>
-              <DialogDescription>
+              <DialogTitle style={{ color: 'var(--text-primary)' }}>{auction.title}</DialogTitle>
+              <DialogDescription style={{ color: 'var(--text-secondary)' }}>
                 Auction Details and Information
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium">Starting Price</p>
-                  <p className="text-lg">${auction.startingPrice.toLocaleString()}</p>
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Starting Price</p>
+                  <p className="text-lg" style={{ color: 'var(--text-primary)' }}>${auction.startingPrice.toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Current Bid</p>
-                  <p className="text-lg text-blue-600">${auction.currentBid.toLocaleString()}</p>
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Current Bid</p>
+                  <p className="text-lg" style={{ color: 'var(--accent-primary)' }}>${auction.currentBid.toLocaleString()}</p>
                 </div>
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Created by:</span>
-                  <span className="font-medium">{auction.createdBy}</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Created by:</span>
+                  <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{auction.createdBy}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Online Users:</span>
-                  <span className="font-medium">👥 {auction.onlineUsers?.length || 0}</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Online Users:</span>
+                  <span className="font-medium" style={{ color: 'var(--text-primary)' }}>👥 {auction.onlineUsers?.length || 0}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Duration:</span>
-                  <span className="font-medium">{auction.duration} minutes</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Duration:</span>
+                  <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{auction.duration} minutes</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Room ID:</span>
-                  <span className="font-mono text-xs">{auction.roomId}</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Room ID:</span>
+                  <span className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>{auction.roomId}</span>
                 </div>
                 {auction.highestBidder && (
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Highest Bidder:</span>
-                    <span className="font-medium text-blue-600">{auction.highestBidder}</span>
+                    <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Highest Bidder:</span>
+                    <span className="font-medium" style={{ color: 'var(--accent-primary)' }}>{auction.highestBidder}</span>
                   </div>
                 )}
               </div>
 
               <div className="pt-4">
-                <p className="text-sm text-muted-foreground mb-2">Time Remaining:</p>
+                <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>Time Remaining:</p>
                 <p className={`font-mono font-semibold text-lg ${hasEnded
                   ? 'text-red-600'
                   : isEnding
@@ -331,11 +343,15 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
 
         {/* Join Button */}
         {hasEnded ? (
-          <Button disabled className="flex-1 rounded-lg border border-gray-300">
+          <Button disabled className="flex-1 rounded-lg" style={{
+            background: 'var(--surface-hover)',
+            borderColor: 'var(--border-secondary)',
+            color: 'var(--text-disabled)'
+          }}>
             Auction Ended
           </Button>
         ) : (
-          <Button onClick={onJoinAuction} className="flex-1 rounded-lg border border-white-500">
+          <Button onClick={onJoinAuction} className="btn btn-primary flex-1 rounded-lg">
             Join Auction
           </Button>
         )}

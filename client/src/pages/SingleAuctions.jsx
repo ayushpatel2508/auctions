@@ -22,13 +22,18 @@ const SingleAuctions = () => {
     // Early returns BEFORE hooks
     if (!user) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+            <div className="min-h-screen flex items-center justify-center" style={{
+                background: 'var(--bg-primary)'
+            }}>
                 <div className="card p-8 text-center max-w-md mx-auto">
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{
+                        background: 'var(--gradient-primary)',
+                        boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)'
+                    }}>
                         <span className="text-3xl">🔐</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white mb-4">Authentication Required</h2>
-                    <p className="text-gray-400 mb-8">Please log in to access auction rooms and participate in bidding.</p>
+                    <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Authentication Required</h2>
+                    <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>Please log in to access auction rooms and participate in bidding.</p>
                     <a
                         href="/login"
                         className="btn btn-primary w-full"
@@ -43,13 +48,18 @@ const SingleAuctions = () => {
 
     if (!roomId) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+            <div className="min-h-screen flex items-center justify-center" style={{
+                background: 'var(--bg-primary)'
+            }}>
                 <div className="card p-8 text-center max-w-md mx-auto">
-                    <div className="w-16 h-16 bg-red-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <span className="text-3xl text-red-400">❌</span>
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{
+                        background: 'var(--error-bg)',
+                        color: 'var(--error)'
+                    }}>
+                        <span className="text-3xl">❌</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white mb-4">Room Not Found</h2>
-                    <p className="text-gray-400 mb-8">The auction room ID is missing or invalid.</p>
+                    <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Room Not Found</h2>
+                    <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>The auction room ID is missing or invalid.</p>
                     <a
                         href="/auctions"
                         className="btn btn-secondary w-full"
@@ -435,18 +445,20 @@ You will be redirected to the auctions page...`.trim();
     };
     return (
         <Layout>
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+            <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
                 <div className="container mx-auto px-6 py-8">
 
                     {/* Header Section */}
                     <div className="mb-8">
                         <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{
+                                background: 'var(--gradient-primary)'
+                            }}>
                                 <span className="text-2xl">🏛️</span>
                             </div>
                             <div>
-                                <h1 className="text-3xl font-bold text-white">Auction Room</h1>
-                                <p className="text-gray-400">Room ID: <span className="text-indigo-400 font-mono">{roomId}</span></p>
+                                <h1 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>Auction Room</h1>
+                                <p style={{ color: 'var(--text-secondary)' }}>Room ID: <span className="font-mono" style={{ color: 'var(--accent-primary)' }}>{roomId}</span></p>
                             </div>
                         </div>
                     </div>
@@ -455,25 +467,28 @@ You will be redirected to the auctions page...`.trim();
                     <div className="card mb-8 p-6">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-                                    <span className="text-indigo-400">👤</span>
+                                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{
+                                    background: 'rgba(210, 105, 30, 0.2)',
+                                    color: 'var(--accent-primary)'
+                                }}>
+                                    <span>👤</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-400">Current User</p>
-                                    <p className="font-semibold text-white">{user}</p>
+                                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Current User</p>
+                                    <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{user}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-3">
-                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${hasJoined ? 'bg-green-500/20' : 'bg-yellow-500/20'
+                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${hasJoined ? 'status-active' : 'status-warning'
                                     }`}>
-                                    <span className={hasJoined ? 'text-green-400' : 'text-yellow-400'}>
+                                    <span>
                                         {hasJoined ? '✅' : '⏳'}
                                     </span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-400">Connection</p>
-                                    <p className={`font-semibold ${hasJoined ? 'text-green-400' : 'text-yellow-400'}`}>
+                                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Connection</p>
+                                    <p className={`font-semibold ${hasJoined ? 'text-green-600' : 'text-yellow-600'}`}>
                                         {hasJoined ? 'Connected' : 'Connecting...'}
                                     </p>
                                 </div>
@@ -481,18 +496,15 @@ You will be redirected to the auctions page...`.trim();
                             {/* Timer - Only show if auction is active */}
                             {!auctionEnded && (
                                 <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${timeLeft <= 60 ? 'bg-red-500/20' :
-                                        timeLeft <= 300 ? 'bg-yellow-500/20' : 'bg-green-500/20'
+                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${timeLeft <= 60 ? 'status-error' :
+                                        timeLeft <= 300 ? 'status-warning' : 'status-active'
                                         }`}>
-                                        <span className={
-                                            timeLeft <= 60 ? 'text-red-400' :
-                                                timeLeft <= 300 ? 'text-yellow-400' : 'text-green-400'
-                                        }>⏰</span>
+                                        <span>⏰</span>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-gray-400">Time Left</p>
-                                        <p className={`font-semibold font-mono ${timeLeft <= 60 ? 'text-red-400 animate-pulse' :
-                                            timeLeft <= 300 ? 'text-yellow-400' : 'text-green-400'
+                                        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Time Left</p>
+                                        <p className={`font-semibold font-mono ${timeLeft <= 60 ? 'text-red-600 animate-pulse' :
+                                            timeLeft <= 300 ? 'text-yellow-600' : 'text-green-600'
                                             }`}>
                                             {timeLeft !== null ? formatTimeLeft(timeLeft) : 'Loading...'}
                                         </p>
@@ -502,12 +514,12 @@ You will be redirected to the auctions page...`.trim();
 
                             {auctionEnded && (
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
-                                        <span className="text-red-400">🔴</span>
+                                    <div className="w-10 h-10 rounded-lg flex items-center justify-center status-error">
+                                        <span>🔴</span>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-gray-400">Status</p>
-                                        <p className="font-semibold text-red-400">Auction Ended</p>
+                                        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Status</p>
+                                        <p className="font-semibold text-red-600">Auction Ended</p>
                                     </div>
                                 </div>
                             )}
@@ -524,12 +536,12 @@ You will be redirected to the auctions page...`.trim();
                                 <div className="card p-8">
                                     <div className="flex items-start justify-between mb-6">
                                         <div className="flex-1">
-                                            <h2 className="text-3xl font-bold text-white mb-3">{auctionData.auction?.title}</h2>
-                                            <p className="text-gray-400 text-lg">{auctionData.auction?.description || 'No description provided'}</p>
+                                            <h2 className="text-3xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>{auctionData.auction?.title}</h2>
+                                            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>{auctionData.auction?.description || 'No description provided'}</p>
                                         </div>
-                                        <div className={`px-4 py-2 rounded-full text-sm font-semibold ${auctionData.auction?.status === 'active'
-                                            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                                            : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                                        <div className={`px-4 py-2 rounded-full text-sm font-semibold border ${auctionData.auction?.status === 'active'
+                                            ? 'status-active'
+                                            : 'status-error'
                                             }`}>
                                             {auctionData.auction?.status === 'active' ? '🟢 Active' : '🔴 Ended'}
                                         </div>
@@ -537,42 +549,55 @@ You will be redirected to the auctions page...`.trim();
 
                                     {/* Auction Stats Grid */}
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                        <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 rounded-xl p-6">
+                                        <div className="card-elevated p-6 border border-green-500/20" style={{
+                                            background: 'linear-gradient(135deg, rgba(34, 139, 34, 0.1) 0%, rgba(34, 139, 34, 0.05) 100%)'
+                                        }}>
                                             <div className="flex items-center gap-3 mb-2">
-                                                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                                                    <span className="text-green-400 text-xl">💰</span>
+                                                <div className="w-10 h-10 rounded-lg flex items-center justify-center status-active">
+                                                    <span className="text-xl">💰</span>
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm text-gray-400">
+                                                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                                                         {auctionData.auction?.status === 'active' ? 'Current Bid' : 'Final Bid'}
                                                     </p>
-                                                    <p className="text-2xl font-bold text-green-400">
+                                                    <p className="text-2xl font-bold text-green-600">
                                                         ${auctionData.auction?.currentBid || auctionData.auction?.startingPrice || 0}
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-xl p-6">
+                                        <div className="card-elevated p-6 border" style={{
+                                            background: 'linear-gradient(135deg, rgba(210, 105, 30, 0.1) 0%, rgba(210, 105, 30, 0.05) 100%)',
+                                            borderColor: 'var(--accent-primary)'
+                                        }}>
                                             <div className="flex items-center gap-3 mb-2">
-                                                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                                                    <span className="text-blue-400 text-xl">👤</span>
+                                                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{
+                                                    background: 'rgba(210, 105, 30, 0.2)',
+                                                    color: 'var(--accent-primary)'
+                                                }}>
+                                                    <span className="text-xl">👤</span>
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm text-gray-400">Created By</p>
-                                                    <p className="text-lg font-semibold text-white">{auctionData.auction?.createdBy}</p>
+                                                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Created By</p>
+                                                    <p className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{auctionData.auction?.createdBy}</p>
                                                 </div>
                                             </div>
                                         </div>
 
                                         {auctionData.auction?.status === 'ended' && (
-                                            <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 rounded-xl p-6">
+                                            <div className="card-elevated p-6 border border-purple-500/20" style={{
+                                                background: 'linear-gradient(135deg, rgba(128, 0, 128, 0.1) 0%, rgba(128, 0, 128, 0.05) 100%)'
+                                            }}>
                                                 <div className="flex items-center gap-3 mb-2">
-                                                    <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                                        <span className="text-purple-400 text-xl">🏆</span>
+                                                    <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{
+                                                        background: 'rgba(128, 0, 128, 0.2)',
+                                                        color: 'purple'
+                                                    }}>
+                                                        <span className="text-xl">🏆</span>
                                                     </div>
                                                     <div>
-                                                        <p className="text-sm text-gray-400">Winner</p>
-                                                        <p className="text-lg font-semibold text-purple-400">
+                                                        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Winner</p>
+                                                        <p className="text-lg font-semibold text-purple-600">
                                                             {auctionData.auction?.winner || auctionData.auction?.highestBidder || 'No winner'}
                                                         </p>
                                                     </div>
@@ -635,7 +660,7 @@ You will be redirected to the auctions page...`.trim();
                                 {/* Bidding Section - Only for active auctions */}
                                 {auctionData.auction?.status === 'active' && !auctionEnded && (
                                     <div className="card p-8">
-                                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                        <h3 className="text-2xl font-bold mb-6 flex items-center gap-3" style={{ color: 'var(--text-primary)' }}>
                                             <span className="text-3xl">🎯</span>
                                             Place Your Bid
                                         </h3>
@@ -643,8 +668,8 @@ You will be redirected to the auctions page...`.trim();
                                         <div className="space-y-6">
                                             {/* Current Highest Bidder Alert */}
                                             {auctionData.auction?.highestBidder === user && (
-                                                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-                                                    <p className="text-green-400 text-sm flex items-center gap-2">
+                                                <div className="rounded-lg p-4 status-active">
+                                                    <p className="text-green-600 text-sm flex items-center gap-2">
                                                         <span>🏆</span>
                                                         You are currently the highest bidder! Wait for others to bid before placing another bid.
                                                     </p>
@@ -662,7 +687,7 @@ You will be redirected to the auctions page...`.trim();
                                                         disabled={auctionEnded || !hasJoined || auctionData.auction?.highestBidder === user}
                                                         min={auctionData.auction?.currentBid ? auctionData.auction.currentBid + 1 : auctionData.auction?.startingPrice}
                                                     />
-                                                    <p className="text-sm text-gray-400 mt-2">
+                                                    <p className="text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
                                                         Minimum bid: ${(auctionData.auction?.currentBid || auctionData.auction?.startingPrice || 0) + 1}
                                                     </p>
                                                 </div>
@@ -686,8 +711,8 @@ You will be redirected to the auctions page...`.trim();
                                             )} */}
 
                                             {auctionEnded && (
-                                                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
-                                                    <p className="text-red-400 text-sm flex items-center gap-2">
+                                                <div className="rounded-lg p-4 status-error">
+                                                    <p className="text-red-600 text-sm flex items-center gap-2">
                                                         <span>🔒</span>
                                                         Auction has ended - bidding is closed
                                                     </p>
@@ -716,8 +741,8 @@ You will be redirected to the auctions page...`.trim();
                                                         <div className="flex items-center gap-3">
                                                             <span className="text-2xl">👑</span>
                                                             <div>
-                                                                <p className="text-indigo-400 font-medium">You are the auction creator</p>
-                                                                <p className="text-gray-400 text-sm">As the creator, you can leave the auction and let it continue without you.</p>
+                                                                <p className="font-medium" style={{ color: 'var(--accent-primary)' }}>You are the auction creator</p>
+                                                                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>As the creator, you can leave the auction and let it continue without you.</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -740,25 +765,25 @@ You will be redirected to the auctions page...`.trim();
                                 {/* Auction Ended Message */}
                                 {auctionEnded && (
                                     <div className="card p-8 text-center">
-                                        <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                            <span className="text-4xl text-red-400">🏁</span>
+                                        <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 status-error">
+                                            <span className="text-4xl">🏁</span>
                                         </div>
-                                        <h3 className="text-2xl font-bold text-red-400 mb-4">Auction Ended!</h3>
-                                        <div className="space-y-2 text-gray-300">
+                                        <h3 className="text-2xl font-bold text-red-600 mb-4">Auction Ended!</h3>
+                                        <div className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
                                             {auctionData?.auction?.highestBidder ? (
                                                 <>
                                                     <p className="text-lg">
-                                                        <span className="text-purple-400 font-semibold">Winner:</span> {auctionData.auction.highestBidder}
+                                                        <span className="font-semibold" style={{ color: 'var(--accent-primary)' }}>Winner:</span> {auctionData.auction.highestBidder}
                                                     </p>
                                                     <p className="text-lg">
-                                                        <span className="text-green-400 font-semibold">Final Bid:</span> ${auctionData.auction.currentBid}
+                                                        <span className="font-semibold text-green-600">Final Bid:</span> ${auctionData.auction.currentBid}
                                                     </p>
                                                 </>
                                             ) : (
-                                                <p className="text-lg text-gray-400">No bids were placed</p>
+                                                <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>No bids were placed</p>
                                             )}
                                         </div>
-                                        <p className="text-sm text-gray-500 mt-6">Redirecting to auctions list in a few seconds...</p>
+                                        <p className="text-sm mt-6" style={{ color: 'var(--text-tertiary)' }}>Redirecting to auctions list in a few seconds...</p>
                                     </div>
                                 )}
                             </div>
@@ -769,11 +794,11 @@ You will be redirected to the auctions page...`.trim();
                                     {/* Online Users Card */}
                                     <div className="card p-6">
                                         <div className="flex items-center justify-between mb-6">
-                                            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                                            <h3 className="text-xl font-semibold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
                                                 <span>👥</span>
                                                 Online Users
                                             </h3>
-                                            <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-semibold border border-green-500/30">
+                                            <div className="px-3 py-1 rounded-full text-sm font-semibold border status-active">
                                                 {onlineUsers.length} active
                                             </div>
                                         </div>
@@ -808,11 +833,14 @@ You will be redirected to the auctions page...`.trim();
                                                 ))
                                             ) : (
                                                 <div className="text-center py-8">
-                                                    <div className="w-12 h-12 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-3">
-                                                        <span className="text-2xl text-gray-500">👤</span>
+                                                    <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" style={{
+                                                        background: 'var(--surface-hover)',
+                                                        color: 'var(--text-tertiary)'
+                                                    }}>
+                                                        <span className="text-2xl">👤</span>
                                                     </div>
-                                                    <p className="text-gray-400">No users online</p>
-                                                    <p className="text-gray-500 text-sm mt-1">Be the first to join!</p>
+                                                    <p style={{ color: 'var(--text-secondary)' }}>No users online</p>
+                                                    <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>Be the first to join!</p>
                                                 </div>
                                             )}
                                         </div>
@@ -828,27 +856,27 @@ You will be redirected to the auctions page...`.trim();
 
                                     {/* Connection Status Card */}
                                     <div className="card p-6">
-                                        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                                        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
                                             <span>🔗</span>
                                             Connection Status
                                         </h3>
                                         <div className="space-y-3">
                                             <div className="flex items-center justify-between">
-                                                <span className="text-gray-400">Socket Status</span>
-                                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${hasJoined
-                                                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                                                    : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                                                <span style={{ color: 'var(--text-secondary)' }}>Socket Status</span>
+                                                <span className={`px-2 py-1 rounded-full text-xs font-medium border ${hasJoined
+                                                    ? 'status-active'
+                                                    : 'status-warning'
                                                     }`}>
                                                     {hasJoined ? '✅ Connected' : '⏳ Connecting'}
                                                 </span>
                                             </div>
                                             <div className="flex items-center justify-between">
-                                                <span className="text-gray-400">Room ID</span>
-                                                <span className="text-indigo-400 font-mono text-sm">{roomId}</span>
+                                                <span style={{ color: 'var(--text-secondary)' }}>Room ID</span>
+                                                <span className="font-mono text-sm" style={{ color: 'var(--accent-primary)' }}>{roomId}</span>
                                             </div>
                                             <div className="flex items-center justify-between">
-                                                <span className="text-gray-400">Your Username</span>
-                                                <span className="text-white font-medium">{user}</span>
+                                                <span style={{ color: 'var(--text-secondary)' }}>Your Username</span>
+                                                <span className="font-medium" style={{ color: 'var(--text-primary)' }}>{user}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -870,19 +898,19 @@ You will be redirected to the auctions page...`.trim();
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-3">
                                         <div className="flex-shrink-0 mt-0.5">
-                                            {toast.type === 'success' && <span className="text-green-400">✅</span>}
-                                            {toast.type === 'error' && <span className="text-red-400">❌</span>}
-                                            {toast.type === 'warning' && <span className="text-yellow-400">⚠️</span>}
-                                            {toast.type === 'info' && <span className="text-blue-400">ℹ️</span>}
+                                            {toast.type === 'success' && <span className="text-green-600">✅</span>}
+                                            {toast.type === 'error' && <span className="text-red-600">❌</span>}
+                                            {toast.type === 'warning' && <span className="text-yellow-600">⚠️</span>}
+                                            {toast.type === 'info' && <span className="text-blue-600">ℹ️</span>}
                                         </div>
                                         <div className="flex-1">
-                                            <div className="text-sm font-medium text-white whitespace-pre-line">{toast.message}</div>
-                                            <div className="text-xs text-gray-400 mt-1">{toast.timestamp}</div>
+                                            <div className="text-sm font-medium whitespace-pre-line" style={{ color: 'var(--text-primary)' }}>{toast.message}</div>
+                                            <div className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{toast.timestamp}</div>
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-                                        className="ml-3 text-gray-400 hover:text-white transition-colors"
+                                        className="ml-3 transition-colors" style={{ color: 'var(--text-secondary)' }}
                                     >
                                         ✕
                                     </button>
