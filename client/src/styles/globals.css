@@ -129,13 +129,12 @@ body {
   border: 1px solid var(--border-primary);
   border-radius: 12px;
   box-shadow: var(--shadow-md);
-  transition: all var(--transition-normal);
+  transition: box-shadow var(--transition-normal);
 }
 
 .card:hover {
   border-color: var(--border-secondary);
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
 }
 
 .card-elevated {

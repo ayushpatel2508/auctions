@@ -53,20 +53,13 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("🔥 CREATE AUCTION - Form submitted")
-        console.log("🔥 Form data:", formData)
-        console.log("🔥 Is authenticated:", isAuthenticated)
-        console.log("🔥 User:", user)
-
         if (!isAuthenticated) {
-            console.log("❌ User not authenticated")
             showToast('Please login to create auctions', 'warning')
             return;
         }
 
         try {
             setLoading(true);
-            console.log("🔥 Starting auction creation...")
 
             const auctionData = {
                 ...formData,
@@ -74,13 +67,9 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                 duration: parseInt(formData.duration)
             };
 
-            console.log("🔥 Auction data to send:", auctionData)
-
             const response = await auctionAPI.createAuction(auctionData);
-            console.log("🔥 API Response:", response)
 
             if (response.data.success) {
-                console.log("✅ Auction created successfully!")
                 showToast('Auction created successfully!', 'success')
                 setDialogOpen(false);
 
@@ -98,8 +87,6 @@ const CreateAuction = ({ children, onAuctionCreated }) => {
                 }
             }
         } catch (error) {
-            console.error('🔥 Error creating auction:', error);
-            console.error('🔥 Error response:', error.response?.data)
             const errorMsg = error.response?.data?.msg || 'Failed to create auction';
             showToast(`Error: ${errorMsg}`, 'error')
         } finally {

@@ -57,13 +57,9 @@ router.get("/users/joined-auctions", isLoggedIn, async (req, res) => {
       ]
     }).sort({ createdAt: -1 });
 
-    console.log(`📊 Found ${joinedAuctions.length} joined auctions for user ${req.user.username}`);
-    console.log(`📅 Including ended auctions since: ${oneMonthAgo.toISOString()}`);
-
     res.json({ success: true, auctions: joinedAuctions });
 
   } catch (err) {
-    console.error("Error fetching joined auctions:", err);
     res.status(500).json({ success: false, msg: "Error fetching joined auctions" });
   }
 });

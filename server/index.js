@@ -11,23 +11,6 @@ import { connect } from "./dbconnect/dbconnect.js";
 // Load environment variables
 dotenv.config();
 
-// Debug: Check if environment variables are loaded
-console.log("🔍 Environment variables loaded:");
-console.log(
-  "- JWT_SECRET:",
-  process.env.JWT_SECRET ? "✅ Loaded" : "❌ Missing"
-);
-console.log(
-  "- MONGODB_URI:",
-  process.env.MONGODB_URI ? "✅ Loaded" : "❌ Missing"
-);
-console.log("- CLIENT_URL:", process.env.CLIENT_URL || "http://localhost:5173");
-console.log(
-  "- SOCKET_CORS_ORIGIN:",
-  process.env.SOCKET_CORS_ORIGIN || "http://localhost:5173"
-);
-console.log("- NODE_ENV:", process.env.NODE_ENV || "development");
-
 // Import models
 import { Auction } from "./models/auction.js";
 import { Bid } from "./models/bid.js";
@@ -82,12 +65,10 @@ const io = new Server(server, {
 const dbConnecting = async () => {
   try {
     await connect();
-    console.log("✅ Database connected successfully");
 
     // Start checking expired auctions only after DB is connected
     startExpiredAuctionsCheck();
   } catch (error) {
-    console.error("❌ Failed to connect to database:", error);
     // Exit if DB connection fails - removed process.exit for production
   }
 };
@@ -99,7 +80,6 @@ const startExpiredAuctionsCheck = () => {
 
   // Then run every 30 seconds
   setInterval(checkExpiredAuctions, 30000);
-  console.log("✅ Expired auctions check started");
 };
 
 dbConnecting();
@@ -108,7 +88,6 @@ const checkExpiredAuctions = async () => {
   try {
     // Check if database is connected
     if (mongoose.connection.readyState !== 1) {
-      console.log("⚠️ Database not connected, skipping expired auctions check");
       return;
     }
 
@@ -168,10 +147,9 @@ const checkExpiredAuctions = async () => {
         showWinner: true,
       });
 
-      console.log(`Auction ${auction.roomId} ended automatically`);
     }
   } catch (error) {
-    console.error("Error checking expired auctions:", error);
+    // Error checking expired auctions
   }
 };
 
@@ -185,7 +163,6 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
 
   // 1. JOIN AUCTION
   socket.on("join-auction", async (data) => {
@@ -196,14 +173,12 @@ io.on("connection", (socket) => {
       const user = await User.findOne({ username });
 
       if (!user) {
-        console.log("❌ User not found:", username);
         return socket.emit("error", "User not found. Please register first.");
       }
 
       const auction = await Auction.findOne({ roomId });
 
       if (!auction) {
-        console.log("❌ Auction not found:", roomId);
         return socket.emit("error", "Auction not found");
       }
 
@@ -251,11 +226,7 @@ io.on("connection", (socket) => {
         message: `${username} joined the auction`,
       });
 
-      console.log(
-        `✅ User ${username} joined auction ${roomId}. Online users: ${auction.onlineUsers.length}`
-      );
     } catch (err) {
-      console.log("Join auction error:", err);
       socket.emit("error", "Failed to join auction");
     }
   });
@@ -320,7 +291,6 @@ io.on("connection", (socket) => {
 
       io.to(roomId).emit("bid-update", bidUpdateData);
     } catch (err) {
-      console.log("Place bid error:", err);
       socket.emit("error", "Failed to place bid");
     }
   });
@@ -360,19 +330,11 @@ io.on("connection", (socket) => {
         });
 
         socket.leave(roomId);
-        console.log(
-          `User ${username} ${
-            isCreator ? "(CREATOR)" : ""
-          } left socket room ${roomId} (API already handled removal)`
-        );
       } else {
         // For route changes and page unloads, just acknowledge but don't remove from online users
-        console.log(
-          `User ${username} navigated away from auction ${roomId} but remains online`
-        );
       }
     } catch (err) {
-      console.log("Error leaving auction:", err);
+      // Error leaving auction
     }
   });
 
@@ -409,16 +371,14 @@ io.on("connection", (socket) => {
           showAlert: true,
         });
 
-        console.log(`User ${username} disconnected from auction ${roomId}`);
       }
 
-      console.log("User disconnected:", socket.id);
     } catch (err) {
-      console.log("Error on disconnect:", err);
+      // Error on disconnect
     }
   });
 });
 
 server.listen(process.env.PORT || 5000, () => {
-  console.log("server live on port", process.env.PORT || 5000);
+  // Server started
 });

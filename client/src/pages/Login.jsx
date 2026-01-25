@@ -67,15 +67,12 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            console.log('🚀 Attempting login with:', formData);
             const res = await authAPI.login(formData);
-            console.log("✅ Login successful:", res);
 
             if (res.data.success) {
                 const username = res.data.username;
                 login(username);
 
-                console.log('✅ User logged in as:', username);
                 alert(`Welcome back, ${username}!`);
 
                 setFormData({ email: '', password: '' });
@@ -83,7 +80,6 @@ const Login = () => {
             }
 
         } catch (err) {
-            console.error("❌ Login error:", err);
             const errorMsg = err.response?.data?.msg || 'Login failed';
             alert(`Login failed: ${errorMsg}`);
         } finally {

@@ -26,18 +26,14 @@ export const AuthProvider = ({ children }) => {
                             // Token is valid
                             setUser(storedUser);
                             setIsAuthenticated(true);
-                            console.log('✅ User authenticated:', storedUser);
-                            console.log('✅ User authenticated:');
                         } else {
                             // Token expired or invalid
-                            console.log('⚠️ Token expired, logging out...');
                             localStorage.removeItem('currentUser');
                             setUser(null);
                             setIsAuthenticated(false);
                         }
                     } catch (error) {
                         // API call failed, assume token expired
-                        console.log('⚠️ Auth verification failed, logging out...');
                         localStorage.removeItem('currentUser');
                         setUser(null);
                         setIsAuthenticated(false);
@@ -46,10 +42,8 @@ export const AuthProvider = ({ children }) => {
                     // No user logged in
                     setUser(null);
                     setIsAuthenticated(false);
-                    console.log('ℹ️ No user logged in');
                 }
             } catch (error) {
-                console.error("Auth check failed:", error);
                 setUser(null);
                 setIsAuthenticated(false);
             } finally {
@@ -67,8 +61,6 @@ export const AuthProvider = ({ children }) => {
 
         setUser(username);
         setIsAuthenticated(true);
-
-        console.log('✅ User logged in:', username);
     };
 
     const logout = async () => {
@@ -79,7 +71,6 @@ export const AuthProvider = ({ children }) => {
                 credentials: 'include', // Send cookies
             });
         } catch (error) {
-            console.error('Backend logout failed:', error);
             // Continue with frontend logout even if backend fails
         }
 
@@ -88,8 +79,6 @@ export const AuthProvider = ({ children }) => {
 
         setUser(null);
         setIsAuthenticated(false);
-
-        console.log('✅ User logged out');
     };
 
     if (loading) {

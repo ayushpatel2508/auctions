@@ -20,25 +20,25 @@ export const connect = async () => {
 
     // Handle connection events
     mongoose.connection.on("connected", () => {
-      console.log("✅ MongoDB connected to:", mongoUri);
+      // MongoDB connected
     });
 
     mongoose.connection.on("error", (err) => {
-      console.error("❌ MongoDB connection error:", err.message);
+      // MongoDB connection error
     });
 
     mongoose.connection.on("disconnected", () => {
-      console.log("⚠️ MongoDB disconnected");
+      // MongoDB disconnected
     });
 
     // Graceful shutdown
     process.on("SIGINT", async () => {
       await mongoose.connection.close();
-      console.log("🔒 MongoDB connection closed through app termination");
+      // MongoDB connection closed through app termination
     });
 
   } catch (error) {
-    console.error("❌ Problem connecting to database:", error.message);
+    // Problem connecting to database
     throw error; // Re-throw to handle in calling function
   }
 };

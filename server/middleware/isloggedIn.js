@@ -31,7 +31,6 @@ export const isLoggedIn = async (req, res, next) => {
     next();
 
   } catch (err) {
-    console.error("❌ Auth middleware error:", err);
     res.status(401).json({
       success: false,
       msg: "Invalid token."

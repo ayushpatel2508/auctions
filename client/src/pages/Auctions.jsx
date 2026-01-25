@@ -34,7 +34,6 @@ const Auctions = () => {
       }
     } catch (err) {
       setError(err.response?.data?.msg || 'Error fetching auctions');
-      console.error('Error fetching auctions:', err);
     } finally {
       setLoading(false);
     }
@@ -202,7 +201,12 @@ const AuctionCard = ({ auction, formatTimeRemaining, isSelected, onToggleDetails
   const hasEnded = timeRemaining <= 0;
 
   return (
-    <Card className="card hover:shadow-xl transition-all duration-300 rounded-lg">
+    <Card
+      className="card rounded-lg transition-shadow duration-300"
+      style={{
+        boxShadow: 'var(--shadow-md)'
+      }}
+    >
       <CardHeader>
         <div className="flex justify-between items-start">
           <CardTitle className="text-xl line-clamp-2" style={{ color: 'var(--text-primary)' }}>{auction.title}</CardTitle>
