@@ -41,10 +41,11 @@ const Navbar = () => {
 
     return (
         <nav style={{
-            background: 'linear-gradient(135deg, #374151 0%, #1f2937 50%, #111827 100%)', // Dark charcoal gradient
-            borderBottom: '1px solid #14b8a6', // Teal border
-            boxShadow: '0 4px 20px rgba(20, 184, 166, 0.1)' // Teal glow
-        }} className="text-white shadow-2xl backdrop-blur-xl">
+            background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 50%, #e8e3d8 100%)', // Porcelain gradient
+            borderBottom: '2px solid #d2691e', // Spice border
+            boxShadow: '0 2px 12px rgba(210, 105, 30, 0.15)', // Warm spice shadow
+            color: '#3a3530' // Warm charcoal text
+        }} className="shadow-lg backdrop-blur-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
 
@@ -52,13 +53,13 @@ const Navbar = () => {
                     <div className="flex items-center space-x-4">
                         <Link to="/" className="flex items-center space-x-3 group">
                             <div style={{
-                                background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)', // Teal gradient
-                                boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)'
+                                background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)', // Spice gradient
+                                boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)'
                             }} className="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300">
                                 <span className="text-2xl">🏛️</span>
                             </div>
                             <span style={{
-                                background: 'linear-gradient(135deg, #14b8a6 0%, #6b7280 100%)',
+                                background: 'linear-gradient(135deg, #d2691e 0%, #8b7d6b 100%)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                                 backgroundClip: 'text'
@@ -75,15 +76,15 @@ const Navbar = () => {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 style={{
-                                    background: 'rgba(55, 65, 81, 0.8)', // Dark charcoal with transparency
-                                    borderColor: '#6b7280', // Light gray border
-                                    color: '#f3f4f6' // Light gray text
+                                    background: 'rgba(248, 246, 240, 0.9)', // Porcelain with transparency
+                                    borderColor: '#8b7d6b', // Mushroom border
+                                    color: '#3a3530' // Warm charcoal text
                                 }}
-                                className="w-full px-5 py-3 rounded-xl border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 backdrop-blur-sm transition-all duration-300"
+                                className="w-full px-5 py-3 rounded-xl border-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 backdrop-blur-sm transition-all duration-300"
                             />
                             <button
                                 type="submit"
-                                className="absolute right-3 top-3 text-teal-400 hover:text-teal-300 transition-colors text-lg"
+                                className="absolute right-3 top-3 text-orange-600 hover:text-orange-500 transition-colors text-lg"
                             >
                                 🔍
                             </button>
@@ -97,17 +98,17 @@ const Navbar = () => {
                         <div className="hidden md:flex space-x-6">
                             <Link
                                 to="/"
-                                className="relative px-4 py-2 font-medium text-gray-300 transition-colors duration-300 hover:text-teal-300 group"
+                                className="relative px-4 py-2 font-medium text-gray-700 transition-colors duration-300 hover:text-orange-600 group"
                             >
                                 Home
-                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-teal-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                             </Link>
                             <Link
                                 to="/auctions"
-                                className="relative px-4 py-2 font-medium text-gray-300 transition-colors duration-300 hover:text-teal-300 group"
+                                className="relative px-4 py-2 font-medium text-gray-700 transition-colors duration-300 hover:text-orange-600 group"
                             >
                                 Auctions
-                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-teal-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                             </Link>
 
                         </div>
@@ -130,10 +131,11 @@ const Navbar = () => {
                                     <button
                                         onClick={handleLogout}
                                         style={{
-                                            background: 'linear-gradient(135deg, #374151 0%, #6b7280 100%)', // Charcoal gradient
-                                            boxShadow: '0 4px 15px rgba(107, 114, 128, 0.3)'
+                                            background: 'linear-gradient(135deg, #8b7d6b 0%, #6d6354 100%)', // Mushroom gradient
+                                            boxShadow: '0 3px 12px rgba(139, 125, 107, 0.3)',
+                                            color: '#f8f6f0' // Porcelain text
                                         }}
-                                        className="hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 text-white border border-gray-500"
+                                        className="hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 border border-gray-400"
                                     >
                                         Logout
                                     </button>
@@ -143,10 +145,11 @@ const Navbar = () => {
                                 <Link
                                     to="/login"
                                     style={{
-                                        background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)', // Teal gradient
-                                        boxShadow: '0 4px 15px rgba(20, 184, 166, 0.3)'
+                                        background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)', // Spice gradient
+                                        boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
+                                        color: '#f8f6f0' // Porcelain text
                                     }}
-                                    className="hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 text-white"
+                                    className="hover:shadow-lg px-6 py-2 rounded-xl transition-all duration-300 font-medium transform hover:scale-105"
                                 >
                                     Login
                                 </Link>

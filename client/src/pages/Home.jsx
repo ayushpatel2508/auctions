@@ -123,21 +123,23 @@ const Home = () => {
 
     const AuctionCard = ({ auction, cardType = "joined" }) => (
         <div style={{
-            background: 'rgba(55, 65, 81, 0.6)', // Dark charcoal with transparency
-            borderColor: '#6b7280', // Light gray border
-            boxShadow: '0 4px 20px rgba(20, 184, 166, 0.1)' // Teal glow
-        }} className="p-6 hover:transform hover:scale-[1.02] transition-all duration-300 rounded-xl border backdrop-blur-sm">
+            background: 'rgba(248, 246, 240, 0.8)', // Porcelain with transparency
+            borderColor: '#8b7d6b', // Mushroom border
+            boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)' // Warm spice shadow
+        }} className="p-6 hover:transform hover:scale-[1.02] transition-all duration-300 rounded-xl border-2 backdrop-blur-sm">
             <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">{auction.title}</h3>
+                <h3 className="text-xl font-bold mb-2 line-clamp-1" style={{ color: '#3a3530' }}>{auction.title}</h3>
                 <div className={`px-3 py-1 rounded-full text-xs font-semibold ${auction.status === 'active'
-                    ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30'
-                    : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
-                    }`}>
+                    ? 'text-orange-700 border-2 border-orange-300'
+                    : 'text-gray-600 border-2 border-gray-300'
+                    }`} style={{
+                        background: auction.status === 'active' ? 'rgba(210, 105, 30, 0.1)' : 'rgba(139, 125, 107, 0.1)'
+                    }}>
                     {auction.status === 'active' ? '🟢 Active' : '🔴 Ended'}
                 </div>
             </div>
 
-            <p className="text-gray-300 mb-6 line-clamp-2 text-sm leading-relaxed">
+            <p className="mb-6 line-clamp-2 text-sm leading-relaxed" style={{ color: '#8b7d6b' }}>
                 {auction.description || 'No description provided'}
             </p>
 
@@ -258,8 +260,9 @@ const Home = () => {
 
     return (
         <div style={{
-            background: 'linear-gradient(135deg, #111827 0%, #374151 50%, #1f2937 100%)', // Dark charcoal gradient
-            minHeight: '100vh'
+            background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)', // Warm porcelain gradient
+            minHeight: '100vh',
+            color: '#3a3530' // Warm charcoal text
         }}>
             <div className="container mx-auto px-6 py-12">
                 {/* Welcome Section */}
@@ -267,15 +270,15 @@ const Home = () => {
                     <div className="flex items-center justify-center gap-4 mb-6">
 
                         <div className="text-left">
-                            <h1 className="text-4xl font-bold text-white">
+                            <h1 className="text-4xl font-bold" style={{ color: '#3a3530' }}>
                                 Welcome back, <span style={{
-                                    background: 'linear-gradient(135deg, #14b8a6 0%, #6b7280 100%)',
+                                    background: 'linear-gradient(135deg, #d2691e 0%, #8b7d6b 100%)',
                                     WebkitBackgroundClip: 'text',
                                     WebkitTextFillColor: 'transparent',
                                     backgroundClip: 'text'
                                 }}>{user}</span>!
                             </h1>
-                            <p className="text-xl text-gray-300 mt-2">
+                            <p className="text-xl mt-2" style={{ color: '#8b7d6b' }}>
                                 Manage your auctions and continue bidding
                             </p>
                         </div>
@@ -286,19 +289,19 @@ const Home = () => {
                 <div className="mb-16">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                         <div>
-                            <h2 className="text-3xl font-bold text-white mb-2">
+                            <h2 className="text-3xl font-bold mb-2" style={{ color: '#3a3530' }}>
                                 Joined Auctions ({joinedAuctions.length})
                             </h2>
-                            <p className="text-gray-300">Active auctions + past month results</p>
+                            <p style={{ color: '#8b7d6b' }}>Active auctions + past month results</p>
                         </div>
                         <button
                             onClick={() => navigate('/auctions')}
                             style={{
-                                background: 'rgba(55, 65, 81, 0.8)', // Dark charcoal with transparency
-                                borderColor: '#14b8a6', // Teal border
-                                color: '#f3f4f6' // Light gray text
+                                background: 'rgba(139, 125, 107, 0.2)', // Mushroom with transparency
+                                borderColor: '#d2691e', // Spice border
+                                color: '#3a3530' // Warm charcoal text
                             }}
-                            className="px-6 py-3 rounded-xl border transition-all duration-300 font-medium hover:bg-gray-600 flex items-center gap-2"
+                            className="px-6 py-3 rounded-xl border-2 transition-all duration-300 font-medium hover:bg-orange-100 flex items-center gap-2"
                         >
                             <span>🔍</span>
                             Browse All Auctions
