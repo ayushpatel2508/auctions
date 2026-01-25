@@ -288,7 +288,7 @@ const Home = () => {
             color: 'var(--text-primary)',
             width: '100%'
         }}>
-            <div className="container mx-auto px-6 py-12" style={{
+            <div className="container background: 'var(--bg-primary)', mx-auto px-6 py-12" style={{
                 background: 'transparent'
             }}>
                 {/* Welcome Section */}
