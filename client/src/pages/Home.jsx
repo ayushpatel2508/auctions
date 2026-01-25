@@ -224,20 +224,38 @@ const Home = () => {
 
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-                <div className="card p-12 text-center max-w-lg mx-auto">
-                    <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-8">
+            <div style={{
+                background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)',
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <div style={{
+                    background: 'rgba(248, 246, 240, 0.9)',
+                    borderColor: '#8b7d6b',
+                    boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)'
+                }} className="p-12 text-center max-w-lg mx-auto rounded-xl border-2 backdrop-blur-sm">
+                    <div style={{
+                        background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                        boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)'
+                    }} className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8">
                         <span className="text-4xl">🏛️</span>
                     </div>
-                    <h1 className="text-4xl font-bold text-white mb-6">
+                    <h1 className="text-4xl font-bold mb-6" style={{ color: '#3a3530' }}>
                         Welcome to MyAuction
                     </h1>
-                    <p className="text-xl text-gray-400 mb-10 leading-relaxed">
+                    <p className="text-xl mb-10 leading-relaxed" style={{ color: '#8b7d6b' }}>
                         Join the excitement of live bidding! Please log in to view your auctions and participate in real-time bidding.
                     </p>
                     <button
                         onClick={() => navigate('/login')}
-                        className="btn btn-primary text-lg px-8 py-4"
+                        style={{
+                            background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                            boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
+                            color: '#f8f6f0'
+                        }}
+                        className="text-lg px-8 py-4 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto"
                     >
                         <span>🚀</span>
                         Login to Continue
@@ -249,10 +267,19 @@ const Home = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+            <div style={{
+                background: 'linear-gradient(135deg, #f8f6f0 0%, #f0ede5 30%, #e8e3d8 70%, #ddd6c7 100%)',
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
                 <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-6"></div>
-                    <p className="text-gray-400 text-lg">Loading your auctions...</p>
+                    <div style={{
+                        borderColor: 'rgba(210, 105, 30, 0.3)',
+                        borderTopColor: '#d2691e'
+                    }} className="w-16 h-16 border-4 rounded-full animate-spin mx-auto mb-6"></div>
+                    <p className="text-lg" style={{ color: '#8b7d6b' }}>Loading your auctions...</p>
                 </div>
             </div>
         );
@@ -329,15 +356,27 @@ const Home = () => {
                             )}
                         </>
                     ) : (
-                        <div className="card p-12 text-center">
-                            <div className="w-16 h-16 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <span className="text-3xl text-gray-500">🎯</span>
+                        <div style={{
+                            background: 'rgba(248, 246, 240, 0.9)',
+                            borderColor: '#8b7d6b',
+                            boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)'
+                        }} className="p-12 text-center rounded-xl border-2 backdrop-blur-sm">
+                            <div style={{
+                                background: 'rgba(139, 125, 107, 0.2)',
+                                borderColor: '#8b7d6b'
+                            }} className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border">
+                                <span className="text-3xl">🎯</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-white mb-4">No Joined Auctions</h3>
-                            <p className="text-gray-400 mb-8">You haven't joined any auctions yet. Start bidding to see them here!</p>
+                            <h3 className="text-xl font-semibold mb-4" style={{ color: '#3a3530' }}>No Joined Auctions</h3>
+                            <p className="mb-8" style={{ color: '#8b7d6b' }}>You haven't joined any auctions yet. Start bidding to see them here!</p>
                             <button
                                 onClick={() => navigate('/auctions')}
-                                className="btn btn-primary"
+                                style={{
+                                    background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                                    boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
+                                    color: '#f8f6f0'
+                                }}
+                                className="px-6 py-3 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto"
                             >
                                 <span>🔍</span>
                                 Browse Auctions
@@ -384,14 +423,25 @@ const Home = () => {
                             )}
                         </>
                     ) : (
-                        <div className="card p-12 text-center">
-                            <div className="w-16 h-16 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <span className="text-3xl text-gray-500">🏛️</span>
+                        <div style={{
+                            background: 'rgba(248, 246, 240, 0.9)',
+                            borderColor: '#8b7d6b',
+                            boxShadow: '0 4px 20px rgba(210, 105, 30, 0.15)'
+                        }} className="p-12 text-center rounded-xl border-2 backdrop-blur-sm">
+                            <div style={{
+                                background: 'rgba(139, 125, 107, 0.2)',
+                                borderColor: '#8b7d6b'
+                            }} className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border">
+                                <span className="text-3xl">🏛️</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-white mb-4">No Created Auctions</h3>
-                            <p className="text-gray-400 mb-8">You haven't created any auctions yet. Start your first auction today!</p>
+                            <h3 className="text-xl font-semibold mb-4" style={{ color: '#3a3530' }}>No Created Auctions</h3>
+                            <p className="mb-8" style={{ color: '#8b7d6b' }}>You haven't created any auctions yet. Start your first auction today!</p>
                             <CreateAuction onAuctionCreated={fetchUserAuctions}>
-                                <button className="btn btn-success">
+                                <button style={{
+                                    background: 'linear-gradient(135deg, #d2691e 0%, #b8541a 100%)',
+                                    boxShadow: '0 3px 12px rgba(210, 105, 30, 0.4)',
+                                    color: '#f8f6f0'
+                                }} className="px-6 py-3 rounded-xl transition-all duration-300 font-medium transform hover:scale-105 flex items-center gap-2 mx-auto">
                                     <span>✨</span>
                                     Create Your First Auction
                                 </button>
